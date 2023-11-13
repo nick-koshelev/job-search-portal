@@ -1,0 +1,124 @@
+body {
+    background-color: #f8f8fe;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+.wrapper {
+    background-color: #f8f8fe;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+ul {
+    list-style-type: none;
+}
+.login_btn, .sign_up_btn {
+    border: none;
+    padding: 10px 20px;
+    font-size: 15px;
+}
+a {
+    text-decoration: none;
+    color: rgb(70, 70, 70);
+}
+.login_btn {
+    color: #4640de;
+    background: #f8f8fd;
+}
+.sign_up_btn {
+    color: #fff;
+    background: #4640de;
+    border-radius: 5px;
+}
+
+.header_tabs, .header_btn_section {
+    display: flex;
+    align-items: center;
+}
+.header_nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header_tabs {
+    gap: 50px;
+}
+.announcement_title {
+    color: #25324b;
+    font-size: 75px;
+}
+.blue_highlight {
+    color: #26a4ff;
+}
+.header_announcement {
+    margin-top: 80px;
+}
+.header_announcement_text {
+    color: #868c9c;
+    font-size: 25px;
+}
+input {
+    border: 0;
+    border-bottom: 1px solid #4640de;
+    font-size: 23px;
+    width: auto;
+}
+.announcement_search {
+    border-radius: 5px;
+    background: #fff;
+    margin-top: 40px;
+    padding: 20px 15px 20px 15px;
+    width: 850px;
+    display: flex;
+    justify-content: space-around;
+}
+.announcement_search_btn {
+    background: #4640de;
+    color: #fff;
+    padding: 15px 25px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 20px;
+}
+.announcement_title {
+    margin-bottom: 0;
+}
+i {
+    font-size: 23px;
+    display: block;
+    color: #4640de;
+}
+.announcement_search_bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.header_underline {
+    width: 47%;
+    height: auto;
+}
+.logo {
+   display: flex;
+   align-items: center;
+    gap: 10px;
+}
+.logo_img {
+    width: 50px;
+    height: 50px;
+}
+.logo_blue {
+    color: #3973b8;
+}
+.logo_slogan {
+    font-family: 'Agbalumo', sans-serif;
+    font-size: 25px;
+}
+.announcement_content_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.header_img {
+    width: 100%;
+    height: auto;
+}
