@@ -4,12 +4,11 @@ require_once 'database/DatabaseHelper.php';
 
 class Database
 {
-    private $dbFilePath = "database/database.db";
-
     public function init()
     {
-        if (!file_exists($this->dbFilePath)) {
-            $db = new DatabaseHelper($this->dbFilePath);
+        if (!file_exists(DatabaseHelper::$dbFilePath)) {
+            $db = new DatabaseHelper();
+            $db->open();
             $this->createUsersTable($db);
             $this->createAdminsTable($db);
             $db->close();
@@ -21,11 +20,18 @@ class Database
         $tableName = "users";
         $columns = "id INTEGER PRIMARY KEY, username TEXT NOT NULL, firstname TEXT, surname TEXT, email TEXT, password TEXT NOT NULL";
         $db->createTable($tableName, $columns);
+        $data = [
+            "id" => "0",
+            "username" => "test",
+            "password" => "test"
+        ];
+
+        $db->insertData($tableName, $data);
     }
 
     private function createAdminsTable($db)
     {
-        $tableName = "roles";
+        $tableName = "admins";
         $columns = "id INTEGER PRIMARY KEY, username TEXT NOT NULL, password TEXT NOT NULL";
         $db->createTable($tableName, $columns);
 

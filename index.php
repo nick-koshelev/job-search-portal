@@ -5,6 +5,8 @@ require_once 'database/Database.php';
 $db = new Database();
 $db->init();
 
+session_start();
+
 $request_url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $request_url = trim($request_url, '/');
 $segments = explode('/', $request_url);
@@ -28,14 +30,16 @@ if (file_exists($controllerFile)) {
     require __DIR__ . '/views/404.php';
 }
 
-function getControllerName($url) {
+function getControllerName($url)
+{
     if (empty($url) || $url === '/') {
         return 'HomeController';
     }
     return ucfirst(trim($url, '/')) . 'Controller';
 }
 
-function getActionName($url) {
+function getActionName($url)
+{
     if (empty($url) || $url === '/') {
         return 'indexAction';
     }

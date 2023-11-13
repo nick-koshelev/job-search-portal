@@ -1,22 +1,19 @@
 <?php
 
-class DatabaseHelper {
+class DatabaseHelper
+{
+    public static $dbFilePath = "database/database.db";
+
     private $db;
 
-    public function __construct($dbFilePath) {
-        try {
-            $this->db = new SQLite3($dbFilePath,SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE, null);
-        } catch (Exception $e) {
-            die("Failed to open the database: " . $e->getMessage());
-        }
-    }
-
-    public function createTable($tableName, $columns) {
+    public function createTable($tableName, $columns)
+    {
         $query = "CREATE TABLE IF NOT EXISTS $tableName ($columns)";
         return $this->db->exec($query);
     }
 
-    public function insertData($tableName, $data) {
+    public function insertData($tableName, $data)
+    {
         $columns = implode(", ", array_keys($data));
         $values = ":" . implode(", :", array_keys($data));
         $query = "INSERT INTO $tableName ($columns) VALUES ($values)";
@@ -27,26 +24,42 @@ class DatabaseHelper {
         return $stmt->execute();
     }
 
-    public function getData($tableName, $condition = "") {
+    public function getData($tableName, $condition = [])
+    {
         $query = "SELECT * FROM $tableName";
         if (!empty($condition)) {
-            $query .= " WHERE $condition";
+            $query .= " WHERE";
+            foreach ($condition as $key => $value) {
+                $query .= " $key = :$key AND";
+            }
+            $query = rtrim($query, ' AND');
         }
-        $result = $this->db->query($query);
+
+        $stmt = $this->db->prepare($query);
+        foreach ($condition as $key => $value) {
+            $stmt->bindParam(":" . $key, $value, SQLITE3_TEXT);
+        }
+
+        $result = $stmt->execute();
         $data = [];
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             $data[] = $row;
         }
+
         return $data;
     }
 
-    public function updateData($tableName, $data, $condition) {
+    public function updateData($tableName, $data, $condition)
+    {
         $columns = "";
         foreach ($data as $key => $value) {
             $columns .= "$key = :$key, ";
         }
         $columns = rtrim($columns, ", ");
-        $query = "UPDATE $tableName SET $columns WHERE $condition";
+        $query = "UPDATE $tableName SET $columns WHERE true";
+        foreach ($condition as $key => $value) {
+            $query .= " AND $key = $value";
+        }
         $stmt = $this->db->prepare($query);
         foreach ($data as $key => $value) {
             $stmt->bindValue(":$key", $value);
@@ -54,12 +67,26 @@ class DatabaseHelper {
         return $stmt->execute();
     }
 
-    public function deleteData($tableName, $condition) {
-        $query = "DELETE FROM $tableName WHERE $condition";
+    public function deleteData($tableName, $condition)
+    {
+        $query = "DELETE FROM $tableName WHERE true";
+        foreach ($condition as $key => $value) {
+            $query .= " AND $key = $value";
+        }
         return $this->db->exec($query);
     }
 
-    public function close() {
+    public function open()
+    {
+        try {
+            $this->db = new SQLite3(DatabaseHelper::$dbFilePath, SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE, null);
+        } catch (Exception $e) {
+            die("Failed to open the database: " . $e->getMessage());
+        }
+    }
+
+    public function close()
+    {
         $this->db->close();
     }
 }
