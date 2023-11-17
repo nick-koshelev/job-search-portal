@@ -1,5 +1,9 @@
 <?php
 
+require_once('vendor/autoload.php');
+
+use Ramsey\Uuid\Uuid;
+
 class DatabaseHelper
 {
     public static $dbFilePath = "database/database.db";
@@ -14,6 +18,9 @@ class DatabaseHelper
 
     public function insertData($tableName, $data)
     {
+        if (!array_key_exists("id", $data) || empty($data["id"]))
+            $data["id"] = Uuid::uuid4()->toString();
+
         $columns = implode(", ", array_keys($data));
         $values = ":" . implode(", :", array_keys($data));
         $query = "INSERT INTO $tableName ($columns) VALUES ($values)";
@@ -56,10 +63,12 @@ class DatabaseHelper
             $columns .= "$key = :$key, ";
         }
         $columns = rtrim($columns, ", ");
-        $query = "UPDATE $tableName SET $columns WHERE true";
+        $query = "UPDATE $tableName SET $columns WHERE";
         foreach ($condition as $key => $value) {
-            $query .= " AND $key = $value";
+            $query .= " $key = :$key AND";
         }
+        $query = rtrim($query, ' AND');
+
         $stmt = $this->db->prepare($query);
         foreach ($data as $key => $value) {
             $stmt->bindValue(":$key", $value);
