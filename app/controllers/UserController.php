@@ -70,19 +70,20 @@ class UserController extends BaseController
                         "password" => isset($_POST["password"]) ? htmlspecialchars($_POST["password"]) : null,
                         "repeatPassword" => isset($_POST["repeatPassword"]) ? htmlspecialchars($_POST["repeatPassword"]) : null,
                     ];
-                    if ($userInput["username"] === "")
+                    if (empty($userInput["username"]))
                         throw new Exception("Username is required");
-                    if ($userInput["password"] === "")
-                        throw new Exception("Password is required");
 
-                    if ($userInput["password"] !== $userInput["repeatPassword"])
+                    if (empty($userInput["password"])) {
+                        $userInput["password"] = $user->password;
+                    } else if ($userInput["password"] !== $userInput["repeatPassword"]) {
                         throw new Exception("You repeated password incorrectly");
+                    }
 
                     $user = User::deserialize($userInput);
                     $this->userManager->updateUser($user);
                     header("Location: /user");
                     exit();
-                } catch(Exception $e) {
+                } catch (Exception $e) {
                     $errorMessage = $e->getMessage();
                     $this->render("Edit account", "app/views/user/edit.php", [
                         "errorMessage" => $errorMessage,

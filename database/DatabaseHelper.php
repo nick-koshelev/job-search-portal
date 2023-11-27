@@ -71,7 +71,10 @@ class DatabaseHelper
 
         $stmt = $this->db->prepare($query);
         foreach ($data as $key => $value) {
-            $stmt->bindValue(":$key", $value);
+            $stmt->bindValue(":" . $key, $value, SQLITE3_TEXT);
+        }
+        foreach ($condition as $key => $value) {
+            $stmt->bindValue(":" . $key, $value, SQLITE3_TEXT);
         }
         return $stmt->execute();
     }

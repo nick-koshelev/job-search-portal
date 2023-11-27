@@ -12,8 +12,8 @@ class HomeController extends BaseController
     public function indexAction()
     {
         // test start
-        $userManager = new UserManager();
-        print_r($userManager->getUsers());
+        //$userManager = new UserManager();
+        //print_r($userManager->getUsers());
         // test end
 
         $this->render("WorkVista - Such dein traum Job", "app/views/home/home.php");

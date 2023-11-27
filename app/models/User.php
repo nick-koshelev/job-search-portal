@@ -61,7 +61,7 @@ class UserManager
 
     public function addUser(User $user)
     {
-        if ($this->isUserExisted($user->username))
+        if ($this->isUserExistByUsername($user->username))
             throw new Exception("User with this username is already existed");
 
         $this->db->open();
@@ -77,7 +77,7 @@ class UserManager
 
     public function updateUser(User $user)
     {
-        if (!$this->isUserExisted($user->username))
+        if (!$this->isUserExistById($user->id))
             throw new Exception("Cannot find user");
 
         $this->db->open();
@@ -128,10 +128,23 @@ class UserManager
         return isset($users[0]) ? User::deserialize($users[0]) : null;
     }
 
-    private function isUserExisted($username): bool
+    public static function isUserLoggedIn(): bool
+    {
+        return isset($_SESSION["userId"]);
+    }
+
+    private function isUserExistByUsername($username): bool
     {
         $this->db->open();
         $existedUser = $this->getByUsername($username);
+        $this->db->close();
+        return (bool)$existedUser;
+    }
+
+    private function isUserExistById($id): bool
+    {
+        $this->db->open();
+        $existedUser = $this->getById($id);
         $this->db->close();
         return (bool)$existedUser;
     }
