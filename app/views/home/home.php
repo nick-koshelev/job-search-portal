@@ -1,3 +1,4 @@
+<script src="/app/views/jobs/buttonsEvents.js"></script>
 <header class="header">
     <div class="wrapper">
         <nav class="header_nav">
@@ -7,8 +8,9 @@
             </div>
 
             <ul class="header_tabs">
-                <li class="header_tabs_item"><a href="#">Jobs</a></li>
+                <li class="header_tabs_item"><a href="#" onclick="redirectToJobs()">Jobs</a></li>
                 <li class="header_tabs_item"><a href="#">Browse Companies</a></li>
+                <li class="header_tabs_item"><a href="#" onclick="redirectToVacancyCreate()">Create vacancy</a></li>
             </ul>
             <div class="header_btn_section">
                 <button href="#" class="login_btn">Login</button>
@@ -26,16 +28,16 @@
                     <img src="/images/underline.png" class="header_underline" alt="underline">
                     <p class="header_announcement_text">Great platform for the job seeker that searching for <br/> new
                         career heights and passionate about startups</p>
-                    <div class="announcement_search">
+                    <div><!--class="announcement_search"-->
                         <div class="announcement_search_bar">
-                            <i class="fa-solid fa-magnifying-glass fa-beat"></i>
-                            <input type="text" placeholder="Job title or keyword">
+<!--                            <i class="fa-solid fa-magnifying-glass fa-beat"></i>-->
+<!--                            <input type="text" placeholder="Job title or keyword">-->
                         </div>
                         <div class="announcement_search_bar">
-                            <i class="fa-solid fa-location-dot fa-beat"></i>
-                            <input type="" placeholder="Florence, Italy">
+<!--                            <i class="fa-solid fa-location-dot fa-beat"></i>-->
+<!--                            <input type="" placeholder="Florence, Italy">-->
                         </div>
-                        <button class="announcement_search_btn">Seach my job</button>
+<!--                        <button class="announcement_search_btn">Seach my job</button>-->
                     </div>
                     <p class="announcement_search_popular">Popular: UI Designer, UX Researcher, Android, Admin</p>
                 </div>
