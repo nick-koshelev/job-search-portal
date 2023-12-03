@@ -1,5 +1,9 @@
 {
   "require": {
-    "ramsey/uuid": "^4.2"
+    "ramsey/uuid": "^4.2",
+    "ext-pdo": "*",
+    "ext-mysqli": "*",
+    "ext-sqlite3": "*",
+    "ext-json": "*"
   }
 }

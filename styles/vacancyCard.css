@@ -1,0 +1,46 @@
+/* styles/vacancyCard.css */
+
+.card {
+    position: absolute;
+    top: 220px;
+    left: 60%;
+    transform: translateX(-50%); /* Центрирование по горизонтали */
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px; /* Уменьшенные внутренние отступы */
+    width: 70%;
+    max-width: 700px; /* Уменьшенная максимальная ширина */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border: 2px solid #3498db;
+}
+
+.job-title {
+    color: #3498db;
+    margin-bottom: 12px; /* Увеличенный отступ снизу */
+    font-size: 20px; /* Увеличенный размер шрифта */
+    font-weight: bold; /* Жирный шрифт для выделения */
+    text-decoration: underline;
+}
+
+.job-details {
+    width: 100%;
+}
+
+.job-details td {
+    padding: 6px; /* Уменьшенные внутренние отступы */
+}
+
+.job-details td i {
+    margin-right: 4px; /* Уменьшенное расстояние между иконкой и текстом */
+    color: #3498db;
+}
+.vacancy-card {
+    max-height: 500px; /* Устанавливает максимальную высоту контейнера */
+    overflow-y: auto; /* Включает полосу прокрутки, если контент выходит за пределы */
+}

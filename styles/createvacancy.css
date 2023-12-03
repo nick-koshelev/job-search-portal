@@ -1,0 +1,84 @@
+body {
+    background-color: #e6f7ff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.form-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 600px;
+}
+
+h2 {
+    text-align: center;
+    color: #0073e6; /* Голубой цвет текста для заголовка */
+}
+
+.form {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #0073e6; /* Голубой цвет текста для меток */
+}
+
+input[type="text"],
+input[type="search"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #0073e6;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #0073e6;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #005bb5;
+}
+
+#map {
+    height: 200px;
+    margin-top: 20px;
+}
+.left-container {
+    width: 40%;
+    padding-right: 20px;
+}
+
+
+.time-container select,
+.time-container input {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+    border: 1px solid #0073e6;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+
+.job-type-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.job-type-container label {
+    margin-bottom: 10px;
+    text-align: center;
+}
