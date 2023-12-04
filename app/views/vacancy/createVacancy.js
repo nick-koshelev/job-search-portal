@@ -1,24 +1,39 @@
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('Script is running.');
+
+    // Получаем ссылку на vacancyContainer
     var vacancyContainer = document.getElementById('vacancyContainer');
+
+    // Проверяем, найден ли vacancyContainer
+    if (!vacancyContainer) {
+        console.error('Error: Vacancy container not found');
+        return;
+    }
+
+    console.log('Vacancy container found:', vacancyContainer);
 
     // Отправляем запрос на сервер для получения данных о вакансиях
     fetch('/app/views/vacancy/getVacancy.php')
         .then(response => response.json())
         .then(vacanciesData => {
+            console.log('Vacancies data:', vacanciesData);
+
             // Отобразить вакансии при загрузке страницы
             vacanciesData.forEach(function (data) {
-                createVacancyCard(data);
+                createVacancyCard(data, vacancyContainer);
             });
         })
         .catch(error => {
             console.error('Error fetching vacancies:', error);
-            alert('An error occurred while fetching vacancies. Please try again.');
+            alert('An error occurred while fetching vacancies. Please try again.\nCheck the console for more details.');
         });
+});
 
-    function createVacancyCard(data) {
-        var card = document.createElement('div');
-        card.classList.add('card');
+function createVacancyCard(data, container) {
+    console.log('Creating vacancy card:', data);
 
+    var card = document.createElement('div');
+    card.classList.add('card');
         var cardHTML = `
         <div class="job-title"><i class="fas fa-briefcase"></i> ${data.job_title || 'N/A'}</div>
         <table class="job-details">
@@ -50,7 +65,12 @@ document.addEventListener('DOMContentLoaded', function () {
         </table>
     `;
 
-        card.innerHTML = cardHTML;
-        vacancyContainer.appendChild(card);
+    card.innerHTML = cardHTML;
+
+    // Проверка наличия контейнера перед добавлением
+    if (container) {
+        container.appendChild(card);
+    } else {
+        console.error('Error: Vacancy container not found');
     }
-});
+}

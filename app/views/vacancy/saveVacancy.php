@@ -10,7 +10,6 @@ $description = isset($_POST['description']) ? $_POST['description'] : '';
 $jobType = isset($_POST['job_type']) ? $_POST['job_type'] : '';
 $salary = isset($_POST['salary']) ? $_POST['salary'] : '';
 
-// Проверка наличия значения job_title
 if (empty($jobTitle)) {
     echo json_encode(['status' => 'error', 'message' => 'Job title is required']);
     exit;

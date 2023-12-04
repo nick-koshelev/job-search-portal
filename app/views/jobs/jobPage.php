@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Job Vacancies</title>
 </head>
+
 <body>
 <h2>Job Vacancies</h2>
 
@@ -40,63 +42,7 @@
 <img src="/images/fone.png" alt="Your Image" style="width: 100%; height: 17%; position: absolute; top: 0; left: 0; z-index: -1;">
 <img src="/images/logo.png" alt="Your Image" style="width: 10%; height: 17%; position: absolute; top: 0; left: 1070px; z-index: -1;">
 
-<script defer>
-    document.addEventListener('DOMContentLoaded', function () {
-        var vacancyContainer = document.getElementById('vacancyContainer');
-
-        // Замените хардкоженные данные на данные, полученные с сервера
-        fetch('/app/views/vacancy/getVacancy.php')
-            .then(response => response.json())
-            .then(vacanciesData => {
-                // Отобразить вакансии при загрузке страницы
-                vacanciesData.forEach(function (data) {
-                    createVacancyCard(data);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching vacancies:', error);
-                alert('An error occurred. Please try again.');
-            });
-
-        function createVacancyCard(data) {
-            var card = document.createElement('div');
-            card.classList.add('card');
-
-            var cardHTML = `
-                    <div class="job-title"><i class="fas fa-briefcase"></i> ${data.job_title}</div>
-                    <table class="job-details">
-                        <tr>
-                            <td><i class="fas fa-building"></i></td>
-                            <td><strong>Company:</strong></td>
-                            <td>${data.company}</td>
-                        </tr>
-                        <tr>
-                            <td><i class="fas fa-map-marker-alt"></i></td>
-                            <td><strong>Location:</strong></td>
-                            <td>${data.location}</td>
-                        </tr>
-                        <tr>
-                            <td><i class="fas fa-align-left"></i></td>
-                            <td><strong>Description:</strong></td>
-                            <td>${data.description}</td>
-                        </tr>
-                        <tr>
-                            <td><i class="fas fa-clock"></i></td>
-                            <td><strong>Job Type:</strong></td>
-                            <td>${data.job_type}</td>
-                        </tr>
-                        <tr>
-                            <td><i class="fas fa-money-bill"></i></td>
-                            <td><strong>Salary:</strong></td>
-                            <td>${data.salary}</td>
-                        </tr>
-                    </table>
-                `;
-
-            card.innerHTML = cardHTML;
-            vacancyContainer.appendChild(card);
-        }
-    });
-</script>
+<script src="/app/views/vacancy/createVacancy.js" defer></script>
 </body>
+
 </html>
