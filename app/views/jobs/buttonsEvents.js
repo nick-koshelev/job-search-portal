@@ -1,3 +1,16 @@
+
 function redirectToJobs() {
-    window.location.href = "https://www.youtube.com/watch?v=d__ULSf2sy4";
+    window.location.href = "/app/views/jobs/jobPage.php";
+}
+
+function redirectToVacancyCreate() {
+    window.location.href = "/app/views/vacancy/vacancy.php";
+}
+
+function performSearch() {
+    alert('etwas');
+}
+
+function applyFilters() {
+
 }
