@@ -30,8 +30,11 @@ class UserController extends BaseController
                 if (!isset($user) || !$user)
                     throw new Exception();
 
+                $vacancies = $this->userManager->getVacancies($userId);
+
                 $this->render("My account", "app/views/user/index.php", [
                     "user" => $user,
+                    "vacancies" => $vacancies
                 ]);
             } else {
                 throw new Exception();
@@ -91,6 +94,27 @@ class UserController extends BaseController
                     ]);
                 }
             }
+        } catch (Exception $e) {
+            http_response_code(404);
+            $this->render("404 Not found", "app/views/404.php");
+        }
+    }
+
+    public function respondAction($vacancyId)
+    {
+        try {
+            if ($_SERVER["REQUEST_METHOD"] !== "POST")
+                throw new Exception();
+
+            $sessionId = $_SESSION["userId"] ?? null;
+
+            if (!$sessionId)
+                throw new Exception();
+
+            $this->userManager->respondToVacancy($sessionId, $vacancyId);
+            header("Location: /app/views/jobs/jobPage.php");
+            exit();
+
         } catch (Exception $e) {
             http_response_code(404);
             $this->render("404 Not found", "app/views/404.php");

@@ -63,6 +63,9 @@ function createVacancyCard(data, container) {
                 <td>${data.salary || 'N/A'}</td>
             </tr>
         </table>
+        <form action="/user/respond?vacancyId=${data.id}" method="post">
+            <button type="submit">Respond</button>
+        </form>
     `;
 
     card.innerHTML = cardHTML;

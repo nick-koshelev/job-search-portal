@@ -40,12 +40,12 @@ class User
     public static function deserialize($data): User
     {
         return new User(
-            $data['username'],
-            $data['firstname'],
-            $data['surname'],
-            $data['email'],
-            $data['password'],
-            $data['id'] ?? null
+            $data["username"],
+            $data["firstname"],
+            $data["surname"],
+            $data["email"],
+            $data["password"],
+            $data["id"] ?? null
         );
     }
 }
@@ -66,11 +66,11 @@ class UserManager
 
         $this->db->open();
         $this->db->insertData("users", [
-            'username' => $user->username,
-            'firstname' => $user->firstname,
-            'surname' => $user->surname,
-            'email' => $user->email,
-            'password' => $user->password
+            "username" => $user->username,
+            "firstname" => $user->firstname,
+            "surname" => $user->surname,
+            "email" => $user->email,
+            "password" => $user->password
         ]);
         $this->db->close();
     }
@@ -82,11 +82,11 @@ class UserManager
 
         $this->db->open();
         $this->db->updateData("users", [
-            'username' => $user->username,
-            'firstname' => $user->firstname,
-            'surname' => $user->surname,
-            'email' => $user->email,
-            'password' => $user->password,
+            "username" => $user->username,
+            "firstname" => $user->firstname,
+            "surname" => $user->surname,
+            "email" => $user->email,
+            "password" => $user->password,
         ], ["id" => $user->id]);
         $this->db->close();
     }
@@ -126,6 +126,35 @@ class UserManager
         $users = $this->db->getData("users", ["username" => $username]);
         $this->db->close();
         return isset($users[0]) ? User::deserialize($users[0]) : null;
+    }
+
+    public function respondToVacancy($userId, $vacancyId)
+    {
+        $this->db->open();
+        $this->db->insertData("user_vacancy", [
+            "user_id" => $userId,
+            "vacancy_id" => $vacancyId
+        ]);
+        $this->db->close();
+    }
+
+    public function getVacancies($userId): ?array
+    {
+        $this->db->open();
+        $vacancyIds = $this->db->getData("user_vacancy", ["user_id" => $userId]);
+        $this->db->close();
+
+        if (empty($vacancyIds))
+            return null;
+
+        $this->db->open();
+        $data = array_map(function ($vacancy) {
+            return $vacancy["vacancy_id"];
+        }, $vacancyIds);
+        $vacancies = $this->db->getData("vacancies", ["id" => $data]);
+        $this->db->close();
+
+        return $vacancies ?? null;
     }
 
     public static function isUserLoggedIn(): bool
