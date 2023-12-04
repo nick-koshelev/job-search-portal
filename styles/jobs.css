@@ -1,54 +1,55 @@
 body {
     font-family: Arial, sans-serif;
-    /*margin: 15px;*/
-    /*padding: 0;*/
+    margin: 15px;
+    padding: 0;
     background-color: #f4f4f4;
 }
 
 .search-container {
     display: flex;
-    /*justify-content: flex-start;*/
-    /*align-items: flex-start;*/
-    /*height: 100vh;*/
-    padding: 50px;
+    align-items: flex-start;
+    padding: 30px;
 }
 
 .search-box {
     position: relative;
+    margin-right: -30px;
     margin-top: 20px;
 }
 
 input[type="text"] {
-    padding: 10px 40px 10px 10px;
+    padding: 10px;
     border: none;
     border-radius: 5px;
-    width: 58%;
+    flex: 1; /* Растягивает поле ввода на всю доступную ширину */
     box-sizing: border-box;
 }
 
 .search-icon {
     position: absolute;
-    top: 5px;
-    right: 60px;
+    top: 50%;
+    right: 10px;
     font-size: 20px;
     cursor: pointer;
+    transform: translateY(-50%); /* Центрирует иконку по вертикали */
 }
 
 .filters {
-    margin-top: 100px;
-    margin-left: -215px;
     border: 1px solid #ccc;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
+    width: 20%;
+    margin-top: 70px;
+    margin-left: -150px;
 }
+
 .filters label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .filters button {
-    margin-top: 10px;
-    padding: 8px 16px;
+    padding: 8px;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -61,23 +62,11 @@ h2 {
     text-align: center;
     margin-top: 35px;
     font-size: 2rem;
-
 }
 
-.vacancy {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-
-.form {
-    width: 50%;
-    margin-top: 50px;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 15px;
-    padding: 0;
-    background-color: #f4f4f4;
+.vacancy-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
 }
