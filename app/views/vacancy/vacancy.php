@@ -29,7 +29,7 @@
         <div id="mapContainer" style="display: none;">
             <div id="map" style="height: 400px;"></div>
         </div>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_xEvldVOqjGVS7oiMctpEFQjJBJ9cx9E&libraries=places&callback=initMap" async></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_xEvldVOqjGVS7oiMctpEFQjJBJ9cx9E&libraries=places&" async></script>
 
         <div align="center" class="form">
             <label for="description">Description:</label>

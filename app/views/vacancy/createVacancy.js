@@ -27,10 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('An error occurred while fetching vacancies. Please try again.\nCheck the console for more details.');
         });
 
-    // Инициализируем Places.js после загрузки контента
-    var placesAutocomplete = places({
-        container: document.querySelector('#location')
-    });
 });
 
 function createVacancyCard(data, container) {
