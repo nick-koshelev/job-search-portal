@@ -1,24 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Script is running.');
 
-    // Получаем ссылку на vacancyContainer
     var vacancyContainer = document.getElementById('vacancyContainer');
 
-    // Проверяем, найден ли vacancyContainer
     if (!vacancyContainer) {
+        console.error('Error: Vacancy container not found');
         return;
     }
 
     console.log('Vacancy container found:', vacancyContainer);
 
-    // Отправляем запрос на сервер для получения данных о вакансиях
     fetch('/app/views/vacancy/getVacancy.php')
         .then(response => response.json())
         .then(vacanciesData => {
             console.log('Vacancies data:', vacanciesData);
 
             // Отобразить вакансии при загрузке страницы
-            vacanciesData.forEach(function (data) {
+            vacanciesData.reverse().forEach(function (data) {
                 createVacancyCard(data, vacancyContainer);
             });
         })
@@ -26,15 +24,13 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error fetching vacancies:', error);
             alert('An error occurred while fetching vacancies. Please try again.\nCheck the console for more details.');
         });
-
 });
 
 function createVacancyCard(data, container) {
-
-    console.log('Creating vacancy card:', data);
-
     var card = document.createElement('div');
+    card.dataset.type = data.job_type || 'N/A';
     card.classList.add('card');
+
     var cardHTML = `
         <div class="job-title"><i class="fas fa-briefcase"></i> ${data.job_title || 'N/A'}</div>
         <table class="job-details">
@@ -64,16 +60,43 @@ function createVacancyCard(data, container) {
                 <td>${data.salary || 'N/A'}</td>
             </tr>
         </table>
+        <form action="/user/respond?vacancyId=${data.id}" method="post">
+            <button type="submit">Respond</button>
+        </form>
     `;
 
     card.innerHTML = cardHTML;
 
-    // Проверка наличия контейнера перед добавлением
+    // Добавляем data-type к элементу карточки
+    card.dataset.type = data.job_type.toLowerCase();
+
     if (container) {
-        // Используем insertBefore, чтобы добавлять в начало
         container.insertBefore(card, container.firstChild);
     } else {
         console.error('Error: Vacancy container not found');
     }
-
 }
+function applyFilters() {
+    var selectedTypes = Array.from(document.querySelectorAll('input[name^="filter_type"]:checked')).map(input => input.value);
+
+    console.log('Selected Types:', selectedTypes);
+
+    var vacancyCards = document.querySelectorAll('.card');
+
+    vacancyCards.forEach(function (card) {
+        var cardType = card.dataset.type;
+
+        console.log('Card Type:', cardType);
+
+        var typeFilterMatch = selectedTypes.length === 0 || selectedTypes.includes(cardType);
+
+        console.log('Type Filter Match:', typeFilterMatch);
+
+        if (!typeFilterMatch) {
+            card.style.display = 'none';
+        } else {
+            card.style.display = 'block';
+        }
+    });
+}
+

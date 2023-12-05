@@ -82,21 +82,3 @@ input[type="submit"]:hover {
     margin-bottom: 10px;
     text-align: center;
 }
-.blue-border {
-    width: 200px;
-    border: 1px solid #0073e6;
-    border-radius: 5px;
-    padding: 8px;
-    box-sizing: border-box;
-}
-.location-container {
-    position: relative;
-}
-
-#locationIcon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-}

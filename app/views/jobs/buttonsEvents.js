@@ -11,3 +11,6 @@ function performSearch() {
     alert('etwas');
 }
 
+function applyFilters() {
+
+}

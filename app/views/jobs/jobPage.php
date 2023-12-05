@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<h2>Job Vacancies</h2>
+<a href="/" style="text-decoration: none;"><h2>Job Vacancies</h2></a>
 
 <div class="search-container">
     <div class="search-box">
@@ -41,6 +41,7 @@
 
 <img src="/images/fone.png" alt="Your Image" style="width: 100%; height: 17%; position: absolute; top: 0; left: 0; z-index: -1;">
 <img src="/images/logo.png" alt="Your Image" style="width: 10%; height: 17%; position: absolute; top: 0; left: 1070px; z-index: -1;">
+
 <script src="/app/views/vacancy/createVacancy.js" defer></script>
 </body>
 
