@@ -1,28 +1,17 @@
 <?php
 try {
-    $search = $_GET["search"] ?? "";
-    $filter = $_GET["filter"] ?? "";
-
     // Подключение к базе данных SQLite
     $pdo = new PDO('sqlite:' . $_SERVER['DOCUMENT_ROOT'] . '/database/database.db');
 
     // Выполнение SQL-запроса для получения всех вакансий
-    $query = 'SELECT * FROM vacancies WHERE true';
-
-    if(!empty($search))
-        $query .= " AND job_title like '%$search%'";
-
-    if (!empty($filter))
-        $query .= " AND job_type like '$filter'";
-
-    $stmt = $pdo->query($query);
-    $vacancies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $pdo->query('SELECT * FROM companies');
+    $companies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Закрытие соединения с базой данных
     $pdo = null;
 
     // Возвращаем данные в формате JSON
-    echo json_encode($vacancies);
+    echo json_encode($companies);
 } catch (PDOException $e) {
     // Логирование ошибки
     error_log('PDO Exception: ' . $e->getMessage());

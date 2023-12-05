@@ -16,10 +16,17 @@ $userLoggedIn = \models\UserManager::isUserLoggedIn();
             <li class="header_tabs_item">
                 <a href="#" class="text-decoration-none btn btn-dark mt-3" onclick="redirectToJobs()">Jobs</a>
             </li>
+            <li class="header_tabs_item">
+                <a href="#" class="text-decoration-none btn btn-dark mt-3" onclick="redirectToCompanies()">Companies</a>
+            </li>
             <?php if ($userLoggedIn): ?>
                 <li class="header_tabs_item">
                     <a href="#" class="text-decoration-none btn btn-dark mt-3" onclick="redirectToVacancyCreate()">Create
                         vacancy</a>
+                </li>
+                <li class="header_tabs_item">
+                    <a href="#" class="text-decoration-none btn btn-dark mt-3" onclick="redirectToCompanyCreate()">Create
+                        Company</a>
                 </li>
             <?php endif; ?>
         </ul>

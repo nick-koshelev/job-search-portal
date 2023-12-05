@@ -62,6 +62,7 @@ function getVacancies(search = "", filter = "")
             console.error('Error fetching vacancies:', error);
             alert('An error occurred while fetching vacancies. Please try again.\nCheck the console for more details.');
         });
+
 }
 
 function createVacancyCard(data, container) {
