@@ -1,8 +1,41 @@
+let searchValue = "";
+let filterValue = "";
+
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Script is running.');
 
+    let searchButton = document.getElementById('search-button');
+
+    searchButton.addEventListener('click', function() {
+        let searchBox = document.getElementById('search');
+
+        searchValue = searchBox.value;
+
+        getVacancies();
+    });
+
+    let filters = document.getElementsByClassName('filter');
+    console.log(filters);
+    Array.prototype.forEach.call(filters,function(filter) {
+            filter.addEventListener('click', function() {
+                if (!this.checked){
+                    filterValue = "";
+                } else {
+                    filterValue = this.value;
+                }
+                getVacancies();
+            });
+        }
+    );
+
+    // Отправляем запрос на сервер для получения данных о вакансиях
+    getVacancies()
+});
+
+function getVacancies(search = "", filter = "")
+{
     // Получаем ссылку на vacancyContainer
-    var vacancyContainer = document.getElementById('vacancyContainer');
+    let vacancyContainer = document.getElementById('vacancyContainer');
 
     // Проверяем, найден ли vacancyContainer
     if (!vacancyContainer) {
@@ -10,9 +43,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     console.log('Vacancy container found:', vacancyContainer);
+    vacancyContainer.innerHTML = "";
 
-    // Отправляем запрос на сервер для получения данных о вакансиях
-    fetch('/app/views/vacancy/getVacancy.php')
+    search = searchValue;
+    filter = filterValue;
+
+    fetch('/app/views/vacancy/getVacancy.php?search=' + search + '&filter=' + filter, { method: 'GET' })
         .then(response => response.json())
         .then(vacanciesData => {
             console.log('Vacancies data:', vacanciesData);
@@ -26,8 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error fetching vacancies:', error);
             alert('An error occurred while fetching vacancies. Please try again.\nCheck the console for more details.');
         });
-
-});
+}
 
 function createVacancyCard(data, container) {
 

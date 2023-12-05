@@ -16,23 +16,22 @@
 <div class="search-container">
     <div class="search-box">
         <input type="text" id="search" name="search" placeholder="Suchen...">
-        <span class="search-icon" onclick="performSearch()">&#128269;</span>
+        <span class="search-icon" id="search-button">&#128269;</span>
     </div>
     <div class="filters">
         <h2>Filter:</h2>
         <label>
-            <input type="checkbox" name="filter_type" value="full_time"> Vollzeit
+            <input type="checkbox" class="filter" name="filter_type" value="Vollzeit"> Vollzeit
         </label>
         <label>
-            <input type="checkbox" name="filter_type" value="part_time"> Teilzeit
+            <input type="checkbox" class="filter" name="filter_type" value="Teilzeit"> Teilzeit
         </label>
         <label>
-            <input type="checkbox" name="filter_location" value="remote"> Minijob
+            <input type="checkbox" class="filter" name="filter_location" value="Minijob"> Minijob
         </label>
         <label>
-            <input type="checkbox" name="filter_location" value="office"> Homeoffice
+            <input type="checkbox" class="filter" name="filter_location" value="Homeoffice"> Homeoffice
         </label>
-        <button onclick="applyFilters()">Filter anwenden</button>
     </div>
     <div class="vacancy-container" id="vacancyContainer">
         <!-- Здесь будут отображаться все вакансии -->

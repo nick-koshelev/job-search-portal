@@ -7,7 +7,3 @@ function redirectToVacancyCreate() {
     window.location.href = "/app/views/vacancy/vacancy.php";
 }
 
-function performSearch() {
-    alert('etwas');
-}
-
