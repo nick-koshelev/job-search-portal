@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<h2>Job Vacancies</h2>
+<a href="/" style="text-decoration: none;"><h2>Job Vacancies</h2></a>
 
 <div class="search-container">
     <div class="search-box">

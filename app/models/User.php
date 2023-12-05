@@ -40,12 +40,12 @@ class User
     public static function deserialize($data): User
     {
         return new User(
-            $data['username'],
-            $data['firstname'],
-            $data['surname'],
-            $data['email'],
-            $data['password'],
-            $data['id'] ?? null
+            $data["username"],
+            $data["firstname"],
+            $data["surname"],
+            $data["email"],
+            $data["password"],
+            $data["id"] ?? null
         );
     }
 }
@@ -61,32 +61,32 @@ class UserManager
 
     public function addUser(User $user)
     {
-        if ($this->isUserExisted($user->username))
+        if ($this->isUserExistByUsername($user->username))
             throw new Exception("User with this username is already existed");
 
         $this->db->open();
         $this->db->insertData("users", [
-            'username' => $user->username,
-            'firstname' => $user->firstname,
-            'surname' => $user->surname,
-            'email' => $user->email,
-            'password' => $user->password
+            "username" => $user->username,
+            "firstname" => $user->firstname,
+            "surname" => $user->surname,
+            "email" => $user->email,
+            "password" => $user->password
         ]);
         $this->db->close();
     }
 
     public function updateUser(User $user)
     {
-        if (!$this->isUserExisted($user->username))
+        if (!$this->isUserExistById($user->id))
             throw new Exception("Cannot find user");
 
         $this->db->open();
         $this->db->updateData("users", [
-            'username' => $user->username,
-            'firstname' => $user->firstname,
-            'surname' => $user->surname,
-            'email' => $user->email,
-            'password' => $user->password,
+            "username" => $user->username,
+            "firstname" => $user->firstname,
+            "surname" => $user->surname,
+            "email" => $user->email,
+            "password" => $user->password,
         ], ["id" => $user->id]);
         $this->db->close();
     }
@@ -128,10 +128,52 @@ class UserManager
         return isset($users[0]) ? User::deserialize($users[0]) : null;
     }
 
-    private function isUserExisted($username): bool
+    public function respondToVacancy($userId, $vacancyId)
+    {
+        $this->db->open();
+        $this->db->insertData("user_vacancy", [
+            "user_id" => $userId,
+            "vacancy_id" => $vacancyId
+        ]);
+        $this->db->close();
+    }
+
+    public function getVacancies($userId): ?array
+    {
+        $this->db->open();
+        $vacancyIds = $this->db->getData("user_vacancy", ["user_id" => $userId]);
+        $this->db->close();
+
+        if (empty($vacancyIds))
+            return null;
+
+        $this->db->open();
+        $data = array_map(function ($vacancy) {
+            return $vacancy["vacancy_id"];
+        }, $vacancyIds);
+        $vacancies = $this->db->getData("vacancies", ["id" => $data]);
+        $this->db->close();
+
+        return $vacancies ?? null;
+    }
+
+    public static function isUserLoggedIn(): bool
+    {
+        return isset($_SESSION["userId"]);
+    }
+
+    private function isUserExistByUsername($username): bool
     {
         $this->db->open();
         $existedUser = $this->getByUsername($username);
+        $this->db->close();
+        return (bool)$existedUser;
+    }
+
+    private function isUserExistById($id): bool
+    {
+        $this->db->open();
+        $existedUser = $this->getById($id);
         $this->db->close();
         return (bool)$existedUser;
     }

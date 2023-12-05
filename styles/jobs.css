@@ -48,7 +48,8 @@ input[type="text"] {
     margin-bottom: 5px;
 }
 
-.filters button {
+.filters button,
+.vacancy-container button{
     padding: 8px;
     background-color: #007bff;
     color: #fff;
@@ -58,7 +59,7 @@ input[type="text"] {
 }
 
 h2 {
-    color: #3498db;
+    color: #3498db !important;
     text-align: center;
     margin-top: 35px;
     font-size: 2rem;
