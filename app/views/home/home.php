@@ -1,7 +1,23 @@
-<header>
-    <div class="container shadow vh-100">
+<script src="/app/views/jobs/buttonsEvents.js"></script>
+<header class="header">
+    <div class="wrapper">
+        <nav class="header_nav">
+            <div class="logo">
+                <img class="logo_img" src="/images/logo.png" alt="logo">
+                <p class="logo_slogan">Work<span class="logo_blue">Vista</span></p>
+            </div>
 
-        <?php include "app/views/header.php" ?>
+            <ul class="header_tabs">
+                <li class="header_tabs_item"><a href="#" onclick="redirectToJobs()">Jobs</a></li>
+                <li class="header_tabs_item"><a href="#">Browse Companies</a></li>
+                <li class="header_tabs_item"><a href="#" onclick="redirectToVacancyCreate()">Create vacancy</a></li>
+            </ul>
+            <div class="header_btn_section">
+                <button href="#" class="login_btn">Login</button>
+                <div id="vert"></div>
+                <button class="sign_up_btn">Sign Up</button>
+            </div>
+        </nav>
 
         <section class="header_announcement">
             <div class="announcement_content_wrapper">

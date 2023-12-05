@@ -1,10 +1,6 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
-
-use Ramsey\Uuid\Uuid;
-
 // Подключение к базе данных SQLite
-$pdo = new PDO('sqlite:' . $_SERVER['DOCUMENT_ROOT'] . '\database\database.db');
+$pdo = new PDO('sqlite:E:\IU\test\job-search-portal\database\database.db');
 
 // Получение данных из формы
 $jobTitle = isset($_POST['job_title']) ? $_POST['job_title'] : '';
@@ -20,12 +16,11 @@ if (empty($jobTitle)) {
 }
 
 // Подготовка SQL-запроса
-$id = Uuid::uuid4()->toString();
-$sql = "INSERT INTO vacancies (id, job_title, company, location, description, job_type, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO vacancies (job_title, company, location, description, job_type, salary) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $pdo->prepare($sql);
 
 // Выполнение запроса с передачей данных
-$stmt->execute([$id, $jobTitle, $company, $location, $description, $jobType, $salary]);
+$stmt->execute([$jobTitle, $company, $location, $description, $jobType, $salary]);
 
 // Закрытие соединения с базой данных
 $pdo = null;

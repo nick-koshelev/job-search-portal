@@ -37,31 +37,14 @@ class DatabaseHelper
         if (!empty($condition)) {
             $query .= " WHERE";
             foreach ($condition as $key => $value) {
-                if (is_array($value)) {
-                    $index = 0;
-                    foreach ($value as $el) {
-                        $query .= " $key = :{$key}_{$index} OR";
-                        $index++;
-                    }
-                } else {
-                    $query .= " $key = :$key AND";
-                }
+                $query .= " $key = :$key AND";
             }
-            $query = rtrim($query, " AND");
-            $query = rtrim($query, " OR");
+            $query = rtrim($query, ' AND');
         }
 
         $stmt = $this->db->prepare($query);
         foreach ($condition as $key => $value) {
-            if (is_array($value)) {
-                $index = 0;
-                foreach ($value as $elKey => $elValue) {
-                    $stmt->bindValue("{$key}_{$index}", $elValue, SQLITE3_TEXT);
-                    $index++;
-                }
-            } else {
-                $stmt->bindParam(":$key", $value, SQLITE3_TEXT);
-            }
+            $stmt->bindParam(":" . $key, $value, SQLITE3_TEXT);
         }
 
         $result = $stmt->execute();
@@ -88,10 +71,7 @@ class DatabaseHelper
 
         $stmt = $this->db->prepare($query);
         foreach ($data as $key => $value) {
-            $stmt->bindValue(":" . $key, $value, SQLITE3_TEXT);
-        }
-        foreach ($condition as $key => $value) {
-            $stmt->bindValue(":" . $key, $value, SQLITE3_TEXT);
+            $stmt->bindValue(":$key", $value);
         }
         return $stmt->execute();
     }

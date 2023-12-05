@@ -10,9 +10,7 @@ class Database
             $db = new DatabaseHelper();
             $db->open();
             $this->createUsersTable($db);
-            $this->createVacancyTable($db);
-            $this->createUserVacancyTable($db);
-            //$this->createAdminsTable($db);
+            $this->createAdminsTable($db);
             $db->close();
         }
     }
@@ -30,41 +28,17 @@ class Database
         $db->insertData($tableName, $data);
     }
 
-    private function createVacancyTable($db)
+    private function createAdminsTable($db)
     {
-        $tableName = "vacancies";
-        $columns = "id TEXT PRIMARY KEY, job_title TEXT, company TEXT, location TEXT, description TEXT, job_type TEXT, salary TEXT";
+        $tableName = "admins";
+        $columns = "id TEXT PRIMARY KEY, username TEXT NOT NULL, password TEXT NOT NULL";
         $db->createTable($tableName, $columns);
+
         $data = [
-            "job_title" => "test",
-            "company" => "test",
-            "location" => "test",
-            "description" => "test",
-            "job_type" => "test",
-            "salary" => "test"
+            "username" => "admin",
+            "password" => "admin",
         ];
 
         $db->insertData($tableName, $data);
     }
-
-    private function createUserVacancyTable($db)
-    {
-        $tableName = "user_vacancy";
-        $columns = "id TEXT PRIMARY KEY, user_id TEXT REFERENCES users(id), vacancy_id TEXT REFERENCES vacancies(id)";
-        $db->createTable($tableName, $columns);
-    }
-
-//    private function createAdminsTable($db)
-//    {
-//        $tableName = "admins";
-//        $columns = "id TEXT PRIMARY KEY, username TEXT NOT NULL, password TEXT NOT NULL";
-//        $db->createTable($tableName, $columns);
-//
-//        $data = [
-//            "username" => "admin",
-//            "password" => "admin",
-//        ];
-//
-//        $db->insertData($tableName, $data);
-//    }
 }

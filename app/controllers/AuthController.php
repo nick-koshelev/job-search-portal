@@ -82,7 +82,7 @@ class AuthController extends BaseController
                 header("Location: /");
                 exit();
             } else {
-                $errorMessage = "Wrong username or password";
+                $errorMessage = "Wrong password";
                 $this->render("Registration", "app/views/auth/login.php", [
                     "errorMessage" => $errorMessage,
                     "userInput" => $userInput,

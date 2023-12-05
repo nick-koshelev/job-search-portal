@@ -57,7 +57,7 @@ a {
     color: #868c9c;
     font-size: 25px;
 }
-.header_input {
+input {
     border: 0;
     border-bottom: 1px solid #4640de;
     font-size: 23px;
@@ -107,7 +107,7 @@ i {
     height: 50px;
 }
 .logo_blue {
-    color: #3973b8 !important;
+    color: #3973b8;
 }
 .logo_slogan {
     font-family: 'Agbalumo', sans-serif;

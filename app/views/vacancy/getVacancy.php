@@ -1,7 +1,7 @@
 <?php
 try {
     // Подключение к базе данных SQLite
-    $pdo = new PDO('sqlite:' . $_SERVER['DOCUMENT_ROOT'] . '\database\database.db');
+    $pdo = new PDO('sqlite:E:\IU\test\job-search-portal\database\database.db');
 
     // Выполнение SQL-запроса для получения всех вакансий
     $stmt = $pdo->query('SELECT * FROM vacancies');
