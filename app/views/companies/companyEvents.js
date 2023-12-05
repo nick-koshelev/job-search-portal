@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     var map = null;
     var locationIcon = document.getElementById('locationIcon');
@@ -51,13 +50,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    var form = document.getElementById('createVacancyForm');
+    var form = document.getElementById('createCompanyForm');
 
     form.addEventListener('submit', function (event) {
         event.preventDefault(); // Предотвратить отправку формы
 
         // Выполнить асинхронный запрос для сохранения данных
-        fetch('/app/views/vacancy/saveVacancy.php', {
+        fetch('/app/views/companies/saveCompany.php', {
             method: form.method,
             body: new FormData(form),
         })
@@ -69,8 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.status === 'error') {
                     alert(data.message);
                 } else {
-                    // Перенаправить пользователя на страницу jobPage.php
-                    window.location.href = '/app/views/jobs/jobPage.php';
+                    // Перенаправить пользователя на страницу companies.php
+                    window.location.href = '/app/views/companies/CompaniesPage.php';
                 }
             })
             .catch(error => {

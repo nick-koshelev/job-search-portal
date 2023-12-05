@@ -4,14 +4,14 @@ try {
     $pdo = new PDO('sqlite:' . $_SERVER['DOCUMENT_ROOT'] . '/database/database.db');
 
     // Выполнение SQL-запроса для получения всех вакансий
-    $stmt = $pdo->query('SELECT * FROM vacancies');
-    $vacancies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $pdo->query('SELECT * FROM companies');
+    $companies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Закрытие соединения с базой данных
     $pdo = null;
 
     // Возвращаем данные в формате JSON
-    echo json_encode($vacancies);
+    echo json_encode($companies);
 } catch (PDOException $e) {
     // Логирование ошибки
     error_log('PDO Exception: ' . $e->getMessage());
