@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Проверяем, найден ли vacancyContainer
     if (!vacancyContainer) {
-        console.error('Error: Vacancy container not found');
         return;
     }
 
@@ -27,14 +26,20 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error fetching vacancies:', error);
             alert('An error occurred while fetching vacancies. Please try again.\nCheck the console for more details.');
         });
+
+    // Инициализируем Places.js после загрузки контента
+    var placesAutocomplete = places({
+        container: document.querySelector('#location')
+    });
 });
 
 function createVacancyCard(data, container) {
+
     console.log('Creating vacancy card:', data);
 
     var card = document.createElement('div');
     card.classList.add('card');
-        var cardHTML = `
+    var cardHTML = `
         <div class="job-title"><i class="fas fa-briefcase"></i> ${data.job_title || 'N/A'}</div>
         <table class="job-details">
             <tr>
@@ -69,8 +74,10 @@ function createVacancyCard(data, container) {
 
     // Проверка наличия контейнера перед добавлением
     if (container) {
-        container.appendChild(card);
+        // Используем insertBefore, чтобы добавлять в начало
+        container.insertBefore(card, container.firstChild);
     } else {
         console.error('Error: Vacancy container not found');
     }
+
 }
