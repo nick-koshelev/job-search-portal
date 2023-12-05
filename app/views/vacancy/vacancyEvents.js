@@ -1,32 +1,50 @@
-document.addEventListener('DOMContentLoaded', function () {
-    var input = document.getElementById('location');
-    var placesAutocomplete = places({
-        container: input,
+
+
+
+async function initMap() {
+
+    var map = null;
+
+    // Обработчик событий для нажатия на значок локации и создания карты
+    document.addEventListener('DOMContentLoaded', function () {
+        var locationIcon = document.getElementById('locationIcon');
+
+        locationIcon.addEventListener('click', function () {
+            // Если карта еще не создана, создаем ее
+            if (!map) {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: 51.505, lng: -0.09 },
+                    zoom: 13
+                });
+
+                // Используем Places API для добавления поискового поля
+                var input = document.getElementById('location');
+                var searchBox = new google.maps.places.SearchBox(input);
+
+                // Обработчик выбора места из поискового поля
+                searchBox.addListener('places_changed', function () {
+                    var places = searchBox.getPlaces();
+                    if (places.length === 0) {
+                        return;
+                    }
+
+                    // Получаем координаты выбранного места и обновляем значение текстового поля
+                    var location = places[0].geometry.location;
+                    input.value = location.lat() + ', ' + location.lng();
+
+                    // Скрываем карту после выбора места
+                    var mapContainer = document.getElementById('mapContainer');
+                    mapContainer.style.display = 'none';
+                });
+            }
+
+            // Переключаем видимость карты
+            var mapContainer = document.getElementById('mapContainer');
+            mapContainer.style.display = (mapContainer.style.display === 'none') ? 'block' : 'none';
+        });
     });
-
-    placesAutocomplete.on('change', function (e) {
-        fetch(`https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(e.suggestion.value)}&key=5684a33cac6042e08ba3835c65cb2ce6`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.results && data.results.length > 0) {
-                    // Извлекаем компоненты адреса из данных
-                    var components = data.results[0].components;
-
-                    // Проверяем наличие города и области
-                    var city = components.city || components.county || components.state;
-
-                    // Выводим город в консоль (или используйте его по своему усмотрению)
-                    console.log('City:', city);
-
-                    // Обновляем поле ввода локации с городом
-                    input.value = city;
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    });
-});
+}
+initMap();
 document.addEventListener('DOMContentLoaded', function () {
     var form = document.getElementById('createVacancyForm');
 
