@@ -57,7 +57,27 @@ input[type="text"] {
     border-radius: 5px;
     cursor: pointer;
 }
+.salary-filter{
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    width: 20%;
+    margin-top: 350px;
+    margin-left: -200px;
+}
+.salary-filter label {
+    display: block;
+    margin-bottom: 5px;
+}
 
+.salary-filter button{
+    padding: 8px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 h2 {
     color: #3498db !important;
     text-align: center;

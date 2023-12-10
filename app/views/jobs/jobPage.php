@@ -33,6 +33,17 @@
             <input type="checkbox" class="filter" name="filter_location" value="Homeoffice"> Homeoffice
         </label>
     </div>
+    <div class="salary-filter">
+        <h2>Your salary:</h2>
+        <label for="minSalary">Min. Gehalt (€/Monat):</label>
+        <input type="number" id="minSalary" name="minSalary" placeholder="Min. Gehalt">
+
+        <label for="maxSalary">Max. Gehalt (€/Monat):</label>
+        <input type="number" id="maxSalary" name="maxSalary" placeholder="Max. Gehalt">
+
+        <button type="button" id="applySalaryFilter">Anwenden</button>
+    </div>
+
     <div class="vacancy-container" id="vacancyContainer">
         <!-- Здесь будут отображаться все вакансии -->
     </div>
