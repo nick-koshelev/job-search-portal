@@ -73,6 +73,17 @@ class UserController extends BaseController
                         "password" => isset($_POST["password"]) ? htmlspecialchars($_POST["password"]) : null,
                         "repeatPassword" => isset($_POST["repeatPassword"]) ? htmlspecialchars($_POST["repeatPassword"]) : null,
                     ];
+
+                    if (!isset($_FILES["image"]) || $_FILES["image"]["error"] == UPLOAD_ERR_NO_FILE)
+                    {
+                        $userInput["image"] = $user->image;
+                    } else if ($_FILES["image"]["error"] == UPLOAD_ERR_OK) {
+                        $image64 = base64_encode(file_get_contents($_FILES["image"]["tmp_name"]));
+                        $userInput["image"] = $image64;
+                    } else {
+                        throw new Exception("Error uploading image");
+                    }
+
                     if (empty($userInput["username"]))
                         throw new Exception("Username is required");
 

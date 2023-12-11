@@ -21,7 +21,7 @@ class Database
     private function createUsersTable($db)
     {
         $tableName = "users";
-        $columns = "id TEXT PRIMARY KEY, username TEXT NOT NULL, firstname TEXT, surname TEXT, email TEXT, password TEXT NOT NULL";
+        $columns = "id TEXT PRIMARY KEY, username TEXT NOT NULL, firstname TEXT, surname TEXT, email TEXT, password TEXT NOT NULL, image TEXT";
         $db->createTable($tableName, $columns);
         $data = [
             "username" => "test",

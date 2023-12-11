@@ -4,11 +4,6 @@ body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
 }
-.wrapper, .container {
-    background-color: #f8f8fe;
-    max-width: 1300px;
-    margin: 0 auto;
-}
 ul {
     list-style-type: none;
 }
@@ -49,9 +44,6 @@ a {
 }
 .blue_highlight {
     color: #26a4ff;
-}
-.header_announcement {
-    margin-top: 80px;
 }
 .header_announcement_text {
     color: #868c9c;

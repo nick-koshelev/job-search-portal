@@ -1,7 +1,10 @@
+<?php
+
+$imageSrc = isset($user) ? "data:" . $user->getImageType() . ";base64," . $user->image : "";
+
+?>
+
 <div class="container shadow min-vh-100">
-
-    <?php include "app/views/header.php" ?>
-
     <div class="p-5">
         <p class="h1 mb-3">Edit</p>
         <?php
@@ -9,13 +12,25 @@
             echo "<div class=\"alert alert-danger text-start\" role=\"alert\">$errorMessage</div>";
         }
         ?>
-        <form class="w-50" action="/user/edit?id=<?php echo $user->id ?? '' ?>" method="post">
+        <form class="w-50" action="/user/edit?id=<?php echo $user->id ?? '' ?>" method="post"
+              enctype="multipart/form-data">
+            <div>
+                <?php if (!empty($imageSrc)) :?>
+                    <img class="img-fluid rounded-circle shadow" src="<?= $imageSrc ?>" alt="Image" style="max-width: 200px">
+                <?php endif; ?>
+            </div>
+            <div class="form-group row my-2">
+                <label for="image" class="col-sm-4 col-form-label">Image</label>
+                <div class="col-sm-8">
+                    <input type="file" class="form-control" id="image" name="image">
+                </div>
+            </div>
             <div class="form-group row my-2">
                 <label for="username" class="col-sm-4 col-form-label">Username <span
                             class="text-danger">*</span></label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" id="username" name="username"
-                           value="<?= $user->username ?? '' ?>">
+                           value="<?= $user->username ?? '' ?>" pattern="[^' ']+">
                 </div>
             </div>
             <div class="form-group row my-2">

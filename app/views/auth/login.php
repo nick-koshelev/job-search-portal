@@ -1,4 +1,11 @@
-<section class="vh-100" style="background-color: #508bfc;">
+<?php
+
+$showHeader = false;
+$showFooter = false;
+
+?>
+
+<section class="min-vh-100" style="background-color: #508bfc;">
     <div class="container py-5 h-100" style="background-color: #508bfc;">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">

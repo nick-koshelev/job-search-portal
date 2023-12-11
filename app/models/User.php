@@ -19,12 +19,15 @@ class User
 
     public $password;
 
+    public $image;
+
     public function __construct(
         $username,
         $firstname,
         $surname,
         $email,
         $password,
+        $image,
         $id = null
     )
     {
@@ -35,6 +38,7 @@ class User
         $this->surname = $surname;
         $this->email = $email;
         $this->password = $password;
+        $this->image = $image;
     }
 
     public static function deserialize($data): User
@@ -45,8 +49,25 @@ class User
             $data["surname"],
             $data["email"],
             $data["password"],
+            $data["image"],
             $data["id"] ?? null
         );
+    }
+
+    public function getImageType()
+    {
+        if (!isset($this->image))
+            return false;
+
+        $imageData = base64_decode($this->image);
+        if ($imageData === false)
+            return false;
+
+        $imageInfo = getimagesizefromstring($imageData);
+        if ($imageInfo === false || !isset($imageInfo["mime"]))
+            return false;
+
+        return $imageInfo["mime"];
     }
 }
 
@@ -70,7 +91,8 @@ class UserManager
             "firstname" => $user->firstname,
             "surname" => $user->surname,
             "email" => $user->email,
-            "password" => $user->password
+            "password" => $user->password,
+            "image" => $user->image,
         ]);
         $this->db->close();
     }
@@ -87,6 +109,7 @@ class UserManager
             "surname" => $user->surname,
             "email" => $user->email,
             "password" => $user->password,
+            "image" => $user->image,
         ], ["id" => $user->id]);
         $this->db->close();
     }
@@ -105,6 +128,7 @@ class UserManager
                 $user["surname"],
                 $user["email"],
                 $user["password"],
+                $user["image"],
                 $user["id"]
             );
         }
@@ -117,6 +141,15 @@ class UserManager
         $this->db->open();
         $users = $this->db->getData("users", ["id" => $id]);
         $this->db->close();
+        return isset($users[0]) ? User::deserialize($users[0]) : null;
+    }
+
+    public static function getUser($id): ?User
+    {
+        $db = new DatabaseHelper();
+        $db->open();
+        $users = $db->getData("users", ["id" => $id]);
+        $db->close();
         return isset($users[0]) ? User::deserialize($users[0]) : null;
     }
 

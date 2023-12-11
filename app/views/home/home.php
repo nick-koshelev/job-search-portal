@@ -1,15 +1,12 @@
-<header>
-    <div class="container shadow vh-100">
-
-        <?php include "app/views/header.php" ?>
-
-        <section class="header_announcement">
+<header class="container flex-grow-1 shadow">
+    <div>
+        <section>
             <div class="announcement_content_wrapper">
                 <div class="announcement_content">
                     <h2 class="announcement_title">Discover <br/> more than <br/> <span class="blue_highlight">5000+ Jobs</span>
                     </h2>
 
-                    <img src="/images/underline.png" class="header_underline" alt="underline">
+                    <img src="/images/underline.png" class="header_underline image-fluid" alt="underline">
                     <p class="header_announcement_text">Great platform for the job seeker that searching for <br/> new
                         career heights and passionate about startups</p>
                     <div>
