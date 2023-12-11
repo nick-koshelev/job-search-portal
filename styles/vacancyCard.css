@@ -1,6 +1,6 @@
 #vacancyContainer {
-    margin-top: 50px; /* Отступ сверху */
-    width: 100%; /* Занимает всю ширину */
+    margin-top: 50px;
+    width: 100%;
 }
 
 .card {
@@ -12,7 +12,7 @@
     max-width: 700px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s;
-    margin: 20px 150px; /* Отступ между карточками */
+    margin: 20px 150px;
 }
 
 .card:hover {
@@ -23,9 +23,9 @@
 
 .job-title {
     color: #3498db;
-    margin-bottom: 12px; /* Увеличенный отступ снизу */
-    font-size: 20px; /* Увеличенный размер шрифта */
-    font-weight: bold; /* Жирный шрифт для выделения */
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-weight: bold;
     text-decoration: underline;
 }
 
@@ -34,10 +34,46 @@
 }
 
 .job-details td {
-    padding: 6px; /* Уменьшенные внутренние отступы */
+    padding: 6px;
 }
 
 .job-details td i {
-    margin-right: 4px; /* Уменьшенное расстояние между иконкой и текстом */
+    margin-right: 4px;
     color: #3498db;
 }
+.favorite-icon {
+    text-align: right;
+    margin-top: 10px;
+
+
+}
+.fa-heart {
+    font-size: 24px;
+    transition: color 0.3s, background-color 0.3s;
+    margin-right: 5px;
+    cursor: pointer;
+
+}
+
+.fa-heart:hover {
+    color: blue;
+    background-color: transparent;
+}
+
+
+.respond-button {
+    background-color: transparent;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 10px;
+    text-align: center;
+}
+
+/*.respond-button:hover {*/
+/*    color: red; !* Цвет текста изменится при наведении на прозрачную кнопку *!*/
+/*}*/
+
+

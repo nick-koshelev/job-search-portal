@@ -100,16 +100,19 @@ function createVacancyCard(data, container) {
                 <td>${data.salary || 'N/A'}</td>
             </tr>
         </table>
+        
+            <button type="submit" class="respond-button">Mehr</button>
+   
         <form action="/user/respond?vacancyId=${data.id}" method="post">
-            <button type="submit">Respond</button>
-        </form>
+          <div class="favorite-icon" >
+        <button type="submit" class="fas fa-heart" ></button>
+          </div>
+              </form>
     `;
 
     card.innerHTML = cardHTML;
 
-    // Проверка наличия контейнера перед добавлением
     if (container) {
-        // Используем insertBefore, чтобы добавлять в начало
         container.insertBefore(card, container.firstChild);
     } else {
         console.error('Error: Vacancy container not found');
