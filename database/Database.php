@@ -12,6 +12,7 @@ class Database
             $this->createUsersTable($db);
             $this->createVacancyTable($db);
             $this->createUserVacancyTable($db);
+            $this->createCompanyTable($db);
             //$this->createAdminsTable($db);
             $db->close();
         }
@@ -52,6 +53,25 @@ class Database
         $tableName = "user_vacancy";
         $columns = "id TEXT PRIMARY KEY, user_id TEXT REFERENCES users(id), vacancy_id TEXT REFERENCES vacancies(id)";
         $db->createTable($tableName, $columns);
+    }
+
+    private function createCompanyTable($db)
+    {
+        $tableName = "companies";
+        $columns = "id TEXT PRIMARY KEY, name TEXT, description TEXT, industry TEXT, location TEXT, website TEXT, contact_email TEXT, contact_phone TEXT";
+        $db->createTable($tableName, $columns);
+
+        $data = [
+            "name" => "test",
+            "description" => "test",
+            "industry" => "test",
+            "location" => "test",
+            "website" => "test",
+            "contact_email" => "test",
+            "contact_phone" => "test"
+        ];
+
+        $db->insertData($tableName, $data);
     }
 
 //    private function createAdminsTable($db)
