@@ -6,6 +6,7 @@ use models\User;
 use models\UserManager;
 
 require_once "app/models/User.php";
+require_once "app/models/UserManager.php";
 require_once "app/controllers/BaseController.php";
 
 class AuthController extends BaseController
@@ -45,7 +46,7 @@ class AuthController extends BaseController
                 if ($userInput["password"] !== $userInput["repeatPassword"])
                     throw new Exception("You repeated password incorrectly");
 
-                $user = User::deserialize($userInput);
+                $user = User::serialize($userInput);
                 $this->userManager->addUser($user);
                 $user = $this->userManager->getByUsername($user->username);
                 $_SESSION["userId"] = $user->id;

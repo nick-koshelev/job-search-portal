@@ -2,9 +2,6 @@
 
 namespace models;
 
-use DatabaseHelper;
-use Exception;
-
 class User
 {
     public $id;
@@ -27,11 +24,11 @@ class User
         $surname,
         $email,
         $password,
-        $image,
+        $image = null,
         $id = null
     )
     {
-        if ($id)
+        if (!empty($id))
             $this->id = $id;
         $this->username = $username;
         $this->firstname = $firstname;
@@ -41,7 +38,7 @@ class User
         $this->image = $image;
     }
 
-    public static function deserialize($data): User
+    public static function serialize($data): User
     {
         return new User(
             $data["username"],
@@ -49,9 +46,22 @@ class User
             $data["surname"],
             $data["email"],
             $data["password"],
-            $data["image"],
+            $data["image"] ?? null,
             $data["id"] ?? null
         );
+    }
+
+    public function deserialize(): array
+    {
+        return [
+            "id" => $this->id,
+            "username" => $this->username,
+            "firstname" => $this->firstname,
+            "surname" => $this->surname,
+            "email" => $this->email,
+            "password" => $this->password,
+            "image" => $this->image,
+        ];
     }
 
     public function getImageType()
@@ -68,146 +78,5 @@ class User
             return false;
 
         return $imageInfo["mime"];
-    }
-}
-
-class UserManager
-{
-    private $db;
-
-    public function __construct()
-    {
-        $this->db = new DatabaseHelper();
-    }
-
-    public function addUser(User $user)
-    {
-        if ($this->isUserExistByUsername($user->username))
-            throw new Exception("User with this username is already existed");
-
-        $this->db->open();
-        $this->db->insertData("users", [
-            "username" => $user->username,
-            "firstname" => $user->firstname,
-            "surname" => $user->surname,
-            "email" => $user->email,
-            "password" => $user->password,
-            "image" => $user->image,
-        ]);
-        $this->db->close();
-    }
-
-    public function updateUser(User $user)
-    {
-        if (!$this->isUserExistById($user->id))
-            throw new Exception("Cannot find user");
-
-        $this->db->open();
-        $this->db->updateData("users", [
-            "username" => $user->username,
-            "firstname" => $user->firstname,
-            "surname" => $user->surname,
-            "email" => $user->email,
-            "password" => $user->password,
-            "image" => $user->image,
-        ], ["id" => $user->id]);
-        $this->db->close();
-    }
-
-    public function getUsers(): array
-    {
-        $this->db->open();
-        $dbUsers = $this->db->getData("users");
-        $this->db->close();
-
-        $users = [];
-        foreach ($dbUsers as $index => $user) {
-            $users[] = new User(
-                $user["username"],
-                $user["firstname"],
-                $user["surname"],
-                $user["email"],
-                $user["password"],
-                $user["image"],
-                $user["id"]
-            );
-        }
-
-        return $users;
-    }
-
-    public function getById($id): ?User
-    {
-        $this->db->open();
-        $users = $this->db->getData("users", ["id" => $id]);
-        $this->db->close();
-        return isset($users[0]) ? User::deserialize($users[0]) : null;
-    }
-
-    public static function getUser($id): ?User
-    {
-        $db = new DatabaseHelper();
-        $db->open();
-        $users = $db->getData("users", ["id" => $id]);
-        $db->close();
-        return isset($users[0]) ? User::deserialize($users[0]) : null;
-    }
-
-    public function getByUsername($username): ?User
-    {
-        $this->db->open();
-        $users = $this->db->getData("users", ["username" => $username]);
-        $this->db->close();
-        return isset($users[0]) ? User::deserialize($users[0]) : null;
-    }
-
-    public function respondToVacancy($userId, $vacancyId)
-    {
-        $this->db->open();
-        $this->db->insertData("user_vacancy", [
-            "user_id" => $userId,
-            "vacancy_id" => $vacancyId
-        ]);
-        $this->db->close();
-    }
-
-    public function getVacancies($userId): ?array
-    {
-        $this->db->open();
-        $vacancyIds = $this->db->getData("user_vacancy", ["user_id" => $userId]);
-        $this->db->close();
-
-        if (empty($vacancyIds))
-            return null;
-
-        $this->db->open();
-        $data = array_map(function ($vacancy) {
-            return $vacancy["vacancy_id"];
-        }, $vacancyIds);
-        $vacancies = $this->db->getData("vacancies", ["id" => $data]);
-        $this->db->close();
-
-        return $vacancies ?? null;
-    }
-
-    public static function isUserLoggedIn(): bool
-    {
-        return isset($_SESSION["userId"]);
-    }
-
-    private function isUserExistByUsername($username): bool
-    {
-        $this->db->open();
-        $existedUser = $this->getByUsername($username);
-        $this->db->close();
-        return (bool)$existedUser;
-    }
-
-    private function isUserExistById($id): bool
-    {
-        $this->db->open();
-        $existedUser = $this->getById($id);
-        $this->db->close();
-        return (bool)$existedUser;
     }
 }

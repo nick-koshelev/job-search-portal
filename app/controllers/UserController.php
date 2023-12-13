@@ -8,6 +8,7 @@ use models\UserManager;
 
 require_once "app/controllers/BaseController.php";
 require_once "app/models/User.php";
+require_once "app/models/UserManager.php";
 
 class UserController extends BaseController
 {
@@ -31,10 +32,12 @@ class UserController extends BaseController
                     throw new Exception();
 
                 $vacancies = $this->userManager->getVacancies($userId);
+                $companies = $this->userManager->getCreatedCompanies($userId);
 
                 $this->render("My account", "app/views/user/index.php", [
                     "user" => $user,
-                    "vacancies" => $vacancies
+                    "vacancies" => $vacancies,
+                    "companies" => $companies,
                 ]);
             } else {
                 throw new Exception();
@@ -74,8 +77,7 @@ class UserController extends BaseController
                         "repeatPassword" => isset($_POST["repeatPassword"]) ? htmlspecialchars($_POST["repeatPassword"]) : null,
                     ];
 
-                    if (!isset($_FILES["image"]) || $_FILES["image"]["error"] == UPLOAD_ERR_NO_FILE)
-                    {
+                    if (!isset($_FILES["image"]) || $_FILES["image"]["error"] == UPLOAD_ERR_NO_FILE) {
                         $userInput["image"] = $user->image;
                     } else if ($_FILES["image"]["error"] == UPLOAD_ERR_OK) {
                         $image64 = base64_encode(file_get_contents($_FILES["image"]["tmp_name"]));
@@ -93,7 +95,7 @@ class UserController extends BaseController
                         throw new Exception("You repeated password incorrectly");
                     }
 
-                    $user = User::deserialize($userInput);
+                    $user = User::serialize($userInput);
                     $this->userManager->updateUser($user);
                     header("Location: /user");
                     exit();

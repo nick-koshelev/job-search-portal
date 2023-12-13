@@ -6,6 +6,7 @@ use DatabaseHelper;
 use models\UserManager;
 
 require_once("app/models/User.php");
+require_once("app/models/UserManager.php");
 require_once("app/controllers/BaseController.php");
 
 class HomeController extends BaseController

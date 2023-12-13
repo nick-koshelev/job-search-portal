@@ -148,3 +148,7 @@ i {
     font-weight: 600;
     line-height: 120%;
 }
+
+.text-blue {
+    color: #3973b8 !important;
+}

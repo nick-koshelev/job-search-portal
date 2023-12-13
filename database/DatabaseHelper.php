@@ -100,9 +100,14 @@ class DatabaseHelper
     {
         $query = "DELETE FROM $tableName WHERE true";
         foreach ($condition as $key => $value) {
-            $query .= " AND $key = $value";
+            $query .= " AND $key = :$key";
         }
-        return $this->db->exec($query);
+
+        $stmt = $this->db->prepare($query);
+        foreach ($condition as $key => $value) {
+            $stmt->bindValue(":" . $key, $value, SQLITE3_TEXT);
+        }
+        $stmt->execute();
     }
 
     public function open()

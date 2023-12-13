@@ -1,10 +1,14 @@
 <?php
+require_once "app/models/User.php";
+require_once "app/models/UserManager.php";
+
 
 $userLoggedIn = \models\UserManager::isUserLoggedIn();
 
+$imageSrc = "/images/default-user.png";
 if ($userLoggedIn) {
     $user = \models\UserManager::getUser($_SESSION["userId"]);
-    if (!empty($user)) {
+    if (!empty($user) && !empty($user->image)) {
         $imageSrc = "data:" . $user->getImageType() . ";base64," . $user->image;
     }
 }
@@ -23,10 +27,10 @@ if ($userLoggedIn) {
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
                 <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToJobs()">Vacancies</a></li>
-                <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToCompanies()">Companies</a></li>
+                <li><a href="/company" class="nav-link px-2 text-white">Companies</a></li>
                 <!-- temporary -->
-                <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToVacancyCreate()">Add vacancy</a></li>
-                <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToCompanyCreate()">Add company</a></li>
+                <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToVacancyCreate()">Add vacancy</a>
+                </li>
                 <!-- temporary -->
                 <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
                 <li><a href="#" class="nav-link px-2 text-white">About</a></li>
@@ -45,10 +49,8 @@ if ($userLoggedIn) {
                 <div class="flex-shrink-0 dropdown-center">
                     <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser"
                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php if (!empty($imageSrc)) : ?>
-                            <img src="<?= $imageSrc ?>" width="40" height="40" class="rounded-circle bg-light"
-                                 alt="Image">
-                        <?php endif; ?>
+                        <img src="<?= $imageSrc ?>" width="40" height="40" class="rounded-circle bg-light"
+                             alt="Image">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark shadow" aria-labelledby="dropdownUser">
                         <li><a class="dropdown-item" href="/user">Profile</a></li>
