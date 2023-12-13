@@ -7,22 +7,34 @@ body {
 
 .search-container {
     display: flex;
-    align-items: flex-start;
-    padding: 30px;
+    gap: 20px;
+    padding: 20px 30px; /* Зменшено відступи для адаптації */
+    margin-top: 45px;
+}
+
+.filters-container {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.vacancy-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    width: 20%;
+
 }
 
 .search-box {
+    margin-bottom: 20px; /* Зменшено відступ для адаптації */
     position: relative;
-    margin-right: -30px;
-    margin-top: 20px;
 }
 
 input[type="text"] {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    flex: 1; /* Растягивает поле ввода на всю доступную ширину */
     box-sizing: border-box;
+    width: 100%;
 }
 
 .search-icon {
@@ -31,53 +43,24 @@ input[type="text"] {
     right: 10px;
     font-size: 20px;
     cursor: pointer;
-    transform: translateY(-50%); /* Центрирует иконку по вертикали */
+    transform: translateY(-50%);
 }
 
-.filters {
+.filters,
+.salary-filter,
+.location-filter {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
-    width: 20%;
-    margin-top: 70px;
-    margin-left: -150px;
+    margin-bottom: 20px;
 }
 
-.filters label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.filters button,
-.vacancy-container button{
-    padding: 8px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.salary-filter{
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    width: 20%;
-    margin-top: 350px;
-    margin-left: -200px;
-}
+.filters label,
 .salary-filter label {
     display: block;
     margin-bottom: 5px;
 }
 
-.salary-filter button{
-    padding: 8px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
 h2 {
     color: #3498db !important;
     text-align: center;
@@ -85,9 +68,60 @@ h2 {
     font-size: 2rem;
 }
 
-.vacancy-container {
+#applySalaryFilter,
+#applyLocationFilter {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+input[type="number"] {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.location-input-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
+    align-items: center;
+}
+
+#locationFilter {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex: 1;
+}
+
+.location-icon {
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+@media only screen and (max-width: 768px) {
+    .search-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .filters-container {
+        margin-right: 0;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .vacancy-container {
+        grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    }
 }

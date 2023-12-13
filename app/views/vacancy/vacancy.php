@@ -21,16 +21,10 @@
         <div align="center" class="form">
             <label for="location">Location:</label>
             <div class="location-container">
-                <input type="search" id="location" name="location" placeholder="Location" required>
+                <input type="search" id="locationFilter" class="filter" name="filter_location" placeholder="Enter location...">
                 <i class="fas fa-map-marker-alt" id="locationIcon"></i>
             </div>
         </div>
-
-        <div id="mapContainer" style="display: none;">
-            <div id="map" style="height: 400px;"></div>
-        </div>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_xEvldVOqjGVS7oiMctpEFQjJBJ9cx9E&libraries=places&" async></script>
-
         <div align="center" class="form">
             <label for="description">Description:</label>
             <textarea id="description" name="description" rows="4" required></textarea>
