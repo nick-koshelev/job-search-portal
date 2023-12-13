@@ -14,14 +14,16 @@
 <a href="/" style="text-decoration: none;"><h2>Job Vacancies</h2></a>
 
 <div class="search-container">
-    <div class="search-box">
-        <input type="text" id="search" name="search" placeholder="Suchen...">
-        <span class="search-icon" id="search-button">&#128269;</span>
-    </div>
+
+    <div class="filters-container">
+        <div class="search-box">
+            <input type="text" id="search" name="search" placeholder="Suchen...">
+            <span class="search-icon" id="search-button">&#128269;</span>
+        </div>
     <div class="filters">
         <h2>Filter:</h2>
         <label>
-            <input type="checkbox" class="filter" name="filter_type" value="Vollzeit"> Vollzeit
+            <input type="checkbox" class="filter"  name="filter_type" value="Vollzeit"> Vollzeit
         </label>
         <label>
             <input type="checkbox" class="filter" name="filter_type" value="Teilzeit"> Teilzeit
@@ -36,18 +38,29 @@
     <div class="salary-filter">
         <h2>Your salary:</h2>
         <label for="minSalary">Min. Gehalt (€/Monat):</label>
-        <input type="number" id="minSalary" name="minSalary" placeholder="Min. Gehalt">
+        <input type="number" id="minSalary" name="minSalary" required min="0" placeholder="1200$">
 
         <label for="maxSalary">Max. Gehalt (€/Monat):</label>
-        <input type="number" id="maxSalary" name="maxSalary" placeholder="Max. Gehalt">
+        <input type="number" id="maxSalary" name="maxSalary" placeholder="50000$">
 
         <button type="button" id="applySalaryFilter">Anwenden</button>
     </div>
-
+    <div class="location-filter">
+        <h2>Location:</h2>
+        <div class="location-input-container">
+            <input type="text" id="locationFilter" class="filter" name="filter_location" placeholder="Enter location...">
+            <span class="location-icon" id="locationIcon">&#127758;</span>
+        </div>
+        <script src="/app/views/vacancy/vacancyEvents.js" defer></script>
+        <button type="button" id="applyLocationFilter">Anwenden</button>
+    </div>
+    </div>
     <div class="vacancy-container" id="vacancyContainer">
         <!-- Здесь будут отображаться все вакансии -->
+
     </div>
 </div>
+
 
 <img src="/images/fone.png" alt="Your Image" style="width: 100%; height: 17%; position: absolute; top: 0; left: 0; z-index: -1;">
 <img src="/images/logo.png" alt="Your Image" style="width: 10%; height: 17%; position: absolute; top: 0; left: 1070px; z-index: -1;">
