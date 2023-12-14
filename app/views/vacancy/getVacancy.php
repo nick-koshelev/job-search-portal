@@ -2,7 +2,9 @@
 try {
     $search = $_GET["search"] ?? "";
     $filter = $_GET["filter"] ?? "";
-
+    $minSalary = $_GET["minSalary"] ?? 0;
+    $maxSalary = $_GET["maxSalary"] ?? PHP_INT_MAX;
+    $location = $_GET["location"] ?? "";
     // Подключение к базе данных SQLite
     $pdo = new PDO('sqlite:' . $_SERVER['DOCUMENT_ROOT'] . '/database/database.db');
 
@@ -14,6 +16,12 @@ try {
 
     if (!empty($filter))
         $query .= " AND job_type like '$filter'";
+
+    if (!empty($minSalary and $maxSalary))
+    $query .= " AND salary >= $minSalary AND salary <= $maxSalary";
+
+    if(!empty($location))
+        $query .= " AND location like '%$location%'";
 
     $stmt = $pdo->query($query);
     $vacancies = $stmt->fetchAll(PDO::FETCH_ASSOC);

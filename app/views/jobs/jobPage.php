@@ -48,7 +48,7 @@
     <div class="location-filter">
         <h2>Location:</h2>
         <div class="location-input-container">
-            <input type="text" id="locationFilter" class="filter" name="filter_location" placeholder="Enter location...">
+            <input type="text" id="location" class="filter" name="location" placeholder="Enter location...">
             <span class="location-icon" id="locationIcon">&#127758;</span>
         </div>
         <script src="/app/views/vacancy/vacancyEvents.js" defer></script>
@@ -57,8 +57,13 @@
     </div>
     <div class="vacancy-container" id="vacancyContainer">
         <!-- Здесь будут отображаться все вакансии -->
-
     </div>
+
+</div>
+<div class="pagination-container">
+    <button id="prevPage" disabled>< Prev</button>
+
+    <button id="nextPage" disabled>Next ></button>
 </div>
 
 

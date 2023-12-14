@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // const locationIconFilter = document.getElementById('location');
-    const locationFilterInput = document.getElementById('locationFilter');
+    const locationFilterInput = document.getElementById('location');
     locationIcon.addEventListener('click', function () {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(handleLocation, handleLocationError);

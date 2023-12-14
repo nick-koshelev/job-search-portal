@@ -1,39 +1,56 @@
 let searchValue = "";
 let filterValue = "";
-
+let minSalaryValue = "";
+let maxSalaryValue = "";
+let locationValue = "";
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Script is running.');
 
     let searchButton = document.getElementById('search-button');
-
+    let salaryButton = document.getElementById('applySalaryFilter');
+    let locationButton = document.getElementById('applyLocationFilter');
     searchButton.addEventListener('click', function() {
         let searchBox = document.getElementById('search');
-
         searchValue = searchBox.value;
-
         getVacancies();
     });
 
+    salaryButton.addEventListener('click', function() {
+        let minBox = document.getElementById('minSalary');
+        let maxBox = document.getElementById('maxSalary');
+
+        minSalaryValue = parseFloat(minBox.value) || 0;
+        maxSalaryValue = parseFloat(maxBox.value) || Number.POSITIVE_INFINITY;
+
+        console.log('Min Salary:', minSalaryValue);
+        console.log('Max Salary:', maxSalaryValue);
+
+        getVacancies();
+    });
+    locationButton.addEventListener('click', function() {
+        let locationBox = document.getElementById('location');
+        locationValue = locationBox.value;
+        getVacancies();
+    });
     let filters = document.getElementsByClassName('filter');
-    console.log(filters);
-    Array.prototype.forEach.call(filters,function(filter) {
-            filter.addEventListener('click', function() {
-                if (!this.checked){
-                    filterValue = "";
-                } else {
-                    filterValue = this.value;
-                }
-                getVacancies();
-            });
-        }
-    );
+    Array.prototype.forEach.call(filters, function(filter) {
+        filter.addEventListener('click', function() {
+            if (!this.checked){
+                filterValue = "";
+            } else {
+                filterValue = this.value;
+            }
+
+            console.log('Filter:', filterValue);
+            getVacancies();
+        });
+    });
 
     // Отправляем запрос на сервер для получения данных о вакансиях
-    getVacancies()
+    getVacancies();
 });
 
-function getVacancies(search = "", filter = "")
-{
+function getVacancies() {
     // Получаем ссылку на vacancyContainer
     let vacancyContainer = document.getElementById('vacancyContainer');
 
@@ -45,10 +62,21 @@ function getVacancies(search = "", filter = "")
     console.log('Vacancy container found:', vacancyContainer);
     vacancyContainer.innerHTML = "";
 
-    search = searchValue;
-    filter = filterValue;
+    // Получаем значения фильтров
+    let search = searchValue;
+    let filter = filterValue;
+    let location = locationValue;
+    console.log('Search:', search);
+    console.log('Filter:', filter);
+    console.log('Location:', location);
+    console.log('Min Salary:', minSalaryValue);
+    console.log('Max Salary:', maxSalaryValue);
 
-    fetch('/app/views/vacancy/getVacancy.php?search=' + search + '&filter=' + filter, { method: 'GET' })
+    // Формируем URL для запроса на сервер
+    let url = `/app/views/vacancy/getVacancy.php?search=${search}&filter=${filter}&minSalary=${minSalaryValue}&maxSalary=${maxSalaryValue}&location=${location}`;
+
+    // Отправляем запрос на сервер для получения данных о вакансиях
+    fetch(url, { method: 'GET' })
         .then(response => response.json())
         .then(vacanciesData => {
             console.log('Vacancies data:', vacanciesData);
@@ -62,8 +90,9 @@ function getVacancies(search = "", filter = "")
             console.error('Error fetching vacancies:', error);
             alert('An error occurred while fetching vacancies. Please try again.\nCheck the console for more details.');
         });
-
 }
+
+
 
 function createVacancyCard(data, container) {
 
