@@ -60,16 +60,16 @@
     </div>
 
 </div>
+<script src="/app/views/vacancy/createVacancy.js" defer></script>
+
 <div class="pagination-container">
-    <button id="prevPage" disabled>< Prev</button>
-
-    <button id="nextPage" disabled>Next ></button>
+    <button id="prevPage" class="pagination-button" onclick="prevPage()">< Prev</button>
+    <div id="pageButtons"></div>
+    <button id="nextPage" class="pagination-button" onclick="nextPage()">Next ></button>
 </div>
-
-
 <img src="/images/fone.png" alt="Your Image" style="width: 100%; height: 17%; position: absolute; top: 0; left: 0; z-index: -1;">
 <img src="/images/logo.png" alt="Your Image" style="width: 10%; height: 17%; position: absolute; top: 0; left: 1070px; z-index: -1;">
-<script src="/app/views/vacancy/createVacancy.js" defer></script>
+
 </body>
 
 </html>

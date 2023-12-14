@@ -70,3 +70,4 @@ var form = document.getElementById('createVacancyForm');
             });
     });
 });
+

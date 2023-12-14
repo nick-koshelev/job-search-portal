@@ -126,14 +126,14 @@ input[type="number"] {
     }
 }
 .pagination-container {
-    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    margin-right: -255px;
     margin-top: 20px;
 }
 
-#prevPage, #nextPage, .pagination-button {
-    display: inline-block;
+.pagination-button {
     padding: 8px 16px;
-    margin: 0 8px; /* Уменьшенный отступ между кнопками */
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -141,7 +141,7 @@ input[type="number"] {
     cursor: pointer;
 }
 
-#prevPage:disabled, #nextPage:disabled {
+.pagination-button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }

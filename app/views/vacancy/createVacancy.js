@@ -1,11 +1,18 @@
+let currentPage = 1;
+let itemsPerPage = 5;
+let data = [];
 let searchValue = "";
 let filterValue = "";
 let minSalaryValue = "";
 let maxSalaryValue = "";
 let locationValue = "";
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Script is running.');
-
+    document.getElementById('prevPage').addEventListener('click', prevPage);
+    document.getElementById('nextPage').addEventListener('click', nextPage);
     let searchButton = document.getElementById('search-button');
     let salaryButton = document.getElementById('applySalaryFilter');
     let locationButton = document.getElementById('applyLocationFilter');
@@ -51,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function getVacancies() {
+    console.log('getVacancies() called');
     // Получаем ссылку на vacancyContainer
     let vacancyContainer = document.getElementById('vacancyContainer');
 
@@ -66,6 +74,7 @@ function getVacancies() {
     let search = searchValue;
     let filter = filterValue;
     let location = locationValue;
+
     console.log('Search:', search);
     console.log('Filter:', filter);
     console.log('Location:', location);
@@ -81,10 +90,9 @@ function getVacancies() {
         .then(vacanciesData => {
             console.log('Vacancies data:', vacanciesData);
 
-            // Отобразить вакансии при загрузке страницы
-            vacanciesData.forEach(function (data) {
-                createVacancyCard(data, vacancyContainer);
-            });
+            data = vacanciesData; // Обновляем данные
+            loadPageData(currentPage);
+
         })
         .catch(error => {
             console.error('Error fetching vacancies:', error);
@@ -147,4 +155,71 @@ function createVacancyCard(data, container) {
         console.error('Error: Vacancy container not found');
     }
 
+}
+function loadPageData(page) {
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const pageData = data.slice(startIndex, endIndex);
+    displayData(pageData);
+    updatePageButtons(page);
+}
+
+function nextPage() {
+    const totalPages = calculateTotalPages(data.length);
+
+    if (currentPage < totalPages) {
+        currentPage++;
+        loadPageData(currentPage);
+        updatePageButtons(currentPage);
+    }
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        loadPageData(currentPage);
+        updatePageButtons(currentPage);
+    }
+}
+function displayData(data) {
+    const vacancyContainer = document.getElementById('vacancyContainer');
+
+    // Очищаем контейнер перед отображением новых данных
+    vacancyContainer.innerHTML = '';
+
+    // Перебираем массив вакансий и создаем элементы для отображения каждой вакансии
+    data.forEach(vacancy => {
+        createVacancyCard(vacancy, vacancyContainer);
+    });
+}
+function updatePageButtons(currentPage) {
+    const totalPages = calculateTotalPages(data.length);
+    const pageButtonsContainer = document.getElementById('pageButtons');
+    pageButtonsContainer.innerHTML = '';
+
+    const maxButtonsToShow = 5; // Максимальное количество кнопок в навигации
+
+    // Функция для добавления кнопки
+    function addButton(pageNumber) {
+        const button = document.createElement('button');
+        button.innerText = pageNumber;
+        button.addEventListener('click', function () {
+            currentPage = pageNumber;
+            loadPageData(currentPage);
+        });
+
+        if (pageNumber === currentPage) {
+            button.classList.add('active');
+        }
+
+        pageButtonsContainer.appendChild(button);
+    }
+
+    for (let i = 1; i <= totalPages; i++) {
+        addButton(i);
+    }
+}
+
+function calculateTotalPages(totalItems) {
+    return Math.ceil(totalItems / itemsPerPage);
 }
