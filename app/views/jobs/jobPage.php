@@ -102,10 +102,10 @@
                 <h4>Menu —</h4>
                 <div class="col-md-6">
                     <ul class="pages">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Companies</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Advice</a></li>
+                        <li><a href="http://localhost:8000/#">Home</a></li>
+                        <li><a href="http://localhost:8000/company">Companies</a></li>
+                        <li><a href="http://localhost:8000/user">Profile</a></li>
+                        <li><a href="http://localhost:8000/app/views/info/advice.php#">Advice</a></li>
                     </ul>
                 </div>
                 <div class="col-md-6">
