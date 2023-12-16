@@ -138,31 +138,31 @@
                 'title' => 'Lebenslauf Muster 2',
                 'description' => 'Dies kann von Ihnen benutzt werden.',
                 'image' => '/images/lebenslauf_muster_2.jpg',
-                'file' => '/pdf/lebenslauf(1).pdf',
+                'file' => '/pdf/lebenslauf (1).pdf',
             ],
             [
                 'title' => 'Lebenslauf Muster 3',
                 'description' => 'Dies kann von Ihnen benutzt werden.',
                 'image' => '/images/lebenslauf_muster_3.jpg',
-                'file' => '/pdf/lebenslauf(2).pdf',
+                'file' => '/pdf/lebenslauf (2).pdf',
             ],
             [
                 'title' => 'Lebenslauf Muster 4',
                 'description' => 'Dies kann von Ihnen benutzt werden.',
                 'image' => '/images/lebenslauf_muster_4.jpg',
-                'file' => '/pdf/lebenslauf(3).pdf',
+                'file' => '/pdf/lebenslauf (3).pdf',
             ],
             [
                 'title' => 'Lebenslauf Muster 5',
                 'description' => 'Dies kann von Ihnen benutzt werden.',
                 'image' => '/images/lebenslauf_muster_5.jpg',
-                'file' => '/pdf/lebenslauf(4).pdf',
+                'file' => '/pdf/lebenslauf (4).pdf',
             ],
             [
                 'title' => 'Lebenslauf Muster 6',
                 'description' => 'Dies kann von Ihnen benutzt werden.',
                 'image' => '/images/lebenslauf_muster_6.jpg',
-                'file' => '/pdf/lebenslauf(5).pdf',
+                'file' => '/pdf/lebenslauf (5).pdf',
             ],
         ];
 
