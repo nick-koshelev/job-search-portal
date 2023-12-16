@@ -1,5 +1,5 @@
 let currentPage = 1;
-let itemsPerPage = 5;
+let itemsPerPage = 3;
 let data = [];
 let searchValue = "";
 let filterValue = "";
@@ -170,7 +170,6 @@ function nextPage() {
     if (currentPage < totalPages) {
         currentPage++;
         loadPageData(currentPage);
-        updatePageButtons(currentPage);
     }
 }
 
@@ -178,7 +177,6 @@ function prevPage() {
     if (currentPage > 1) {
         currentPage--;
         loadPageData(currentPage);
-        updatePageButtons(currentPage);
     }
 }
 function displayData(data) {
@@ -204,8 +202,7 @@ function updatePageButtons(currentPage) {
         const button = document.createElement('button');
         button.innerText = pageNumber;
         button.addEventListener('click', function () {
-            currentPage = pageNumber;
-            loadPageData(currentPage);
+            loadPageData(pageNumber);
         });
 
         if (pageNumber === currentPage) {
@@ -215,11 +212,42 @@ function updatePageButtons(currentPage) {
         pageButtonsContainer.appendChild(button);
     }
 
-    for (let i = 1; i <= totalPages; i++) {
-        addButton(i);
+    // Функция для добавления троеточия
+    function addEllipsis() {
+        const ellipsis = document.createElement('span');
+        ellipsis.innerText = '...';
+        pageButtonsContainer.appendChild(ellipsis);
+    }
+
+    if (totalPages <= maxButtonsToShow) {
+        // Если страниц немного, просто добавляем кнопки для каждой страницы
+        for (let i = 1; i <= totalPages; i++) {
+            addButton(i);
+        }
+    } else {
+        // Если страниц много, добавляем кнопки с использованием троеточия
+        const startPage = Math.max(1, currentPage - 2);
+        const endPage = Math.min(totalPages, startPage + maxButtonsToShow - 1);
+
+        if (startPage > 1) {
+            addButton(1);
+            if (startPage > 2) {
+                addEllipsis();
+            }
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            addButton(i);
+        }
+
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                addEllipsis();
+            }
+            addButton(totalPages);
+        }
     }
 }
-
 function calculateTotalPages(totalItems) {
     return Math.ceil(totalItems / itemsPerPage);
 }
