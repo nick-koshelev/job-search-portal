@@ -29,11 +29,15 @@ if ($userLoggedIn) {
                 <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToJobs()">Vacancies</a></li>
                 <li><a href="/company" class="nav-link px-2 text-white">Companies</a></li>
                 <!-- temporary -->
+
+                <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToBlogs()">Blogs</a></li>
+                <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToCreateBlog()">Add Blog</a></li>
+
                 <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToVacancyCreate()">Add vacancy</a>
                 </li>
                 <!-- temporary -->
-                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToFAQ()">FAQs</a></li>
+                <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToAboutUs()">About</a></li>
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
