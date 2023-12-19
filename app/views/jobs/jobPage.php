@@ -110,7 +110,7 @@
                 </div>
                 <div class="col-md-6">
                     <ul class="list">
-                        <li><a href="#">About Us</a></li>
+                        <li><a href="http://localhost:8000/app/views/info/aboutUs.php#">Bewertung von Kunden</a></li>
                         <li><a href="#">Contacts</a></li>
                         <li><a href="#">Terms & Condition</a></li>
                         <li><a href="#">Privacy Policy</a></li>
