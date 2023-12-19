@@ -7,39 +7,37 @@ if (!$conn) {
     die("Fehler: " . implode(" ", $conn->errorInfo()));
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Защита от SQL-инъекций
-    $commentId = intval($_POST["commentId"]);
+// Получение данных из запроса
+$commentId = $_POST['commentId'];
 
-    // Проверка, является ли текущий пользователь автором комментария
-    session_start();
-    if (isset($_SESSION['user_id'])) {
-        $userId = $_SESSION['user_id'];
+// Получение информации о текущем пользователе (замените на ваш механизм аутентификации)
+$currentUserId = getCurrentUserId(); // Замените на вашу реальную реализацию
 
-        // Проверка, является ли пользователь автором комментария
-        $stmt = $conn->prepare("SELECT user_id FROM comments WHERE id = :commentId");
-        $stmt->bindParam(':commentId', $commentId);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+// Получение информации о владельце комментария
+$sqlCheckOwnership = "SELECT user_id FROM comments WHERE id = :commentId";
+$stmtCheckOwnership = $conn->prepare($sqlCheckOwnership);
+$stmtCheckOwnership->bindParam(':commentId', $commentId, PDO::PARAM_INT);
+$stmtCheckOwnership->execute();
+$row = $stmtCheckOwnership->fetch(PDO::FETCH_ASSOC);
 
-        if ($result && $result['user_id'] === $userId) {
-            // Удаление комментария
-            $stmt = $conn->prepare("DELETE FROM comments WHERE id = :commentId");
-            $stmt->bindParam(':commentId', $commentId);
-
-            if ($stmt->execute()) {
-                echo "Kommentar wurde gelöscht.";
-            } else {
-                echo "Fehler beim Löschen des Kommentars: " . implode(" ", $stmt->errorInfo());
-            }
-        } else {
-            echo "Sie sind nicht berechtigt, diesen Kommentar zu löschen.";
-        }
-    } else {
-        echo "Benutzer nicht angemeldet.";
-    }
+if ($row && isCurrentUserOwner($row["user_id"])) {
+    // Удаление комментария
+    $sqlDelete = "DELETE FROM comments WHERE id = :commentId";
+    $stmtDelete = $conn->prepare($sqlDelete);
+    $stmtDelete->bindParam(':commentId', $commentId, PDO::PARAM_INT);
+    $stmtDelete->execute();
+    echo "Комментарий успешно удален";
+} else {
+    echo "Ошибка: Вы не являетесь владельцем комментария";
 }
 
 // Закрытие подключения
 $conn = null;
+
+// Замените эту функцию на ваш механизм аутентификации
+function getCurrentUserId() {
+    // Верните идентификатор текущего пользователя или null, если не аутентифицирован
+    // Пример: return isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+    return null; // Замените на вашу реальную реализацию
+}
 ?>
