@@ -13,6 +13,7 @@ class Database
             $this->createVacancyTable($db);
             $this->createUserVacancyTable($db);
             $this->createCompanyTable($db);
+            $this->createBlogTable($db);
             //$this->createAdminsTable($db);
             $db->close();
         }
@@ -80,6 +81,23 @@ class Database
             "contact_email" => "test",
             "contact_phone" => "test",
             "creator_user_id" => "test",
+        ];
+
+        $db->insertData($tableName, $data);
+    }
+    private function createBlogTable($db)
+    {
+        $tableName = "blogs";
+        $columns = "id TEXT PRIMARY KEY, title TEXT, content TEXT, author TEXT, publish_date TEXT, tags TEXT";
+        $db->createTable($tableName, $columns);
+
+        $data = [
+            "id" => "test",
+            "title" => "Sample Blog",
+            "content" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "author" => "John Doe",
+            "publish_date" => "2023-01-01",
+            "tags" => "technology, programming",
         ];
 
         $db->insertData($tableName, $data);
