@@ -137,9 +137,7 @@ function createVacancyCard(data, container) {
                 <td>${data.salary || 'N/A'}</td>
             </tr>
         </table>
-        
-            <button type="submit" class="respond-button">Mehr</button>
-   
+           
         <form action="/user/respond?vacancyId=${data.id}" method="post">
           <div class="favorite-icon" >
         <button type="submit" class="fas fa-heart" ></button>

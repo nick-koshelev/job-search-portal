@@ -58,9 +58,7 @@
     </div>
     </div>
     <div class="vacancy-container" id="vacancyContainer">
-        <!-- Здесь будут отображаться все вакансии -->
     </div>
-    <!-- Блок с новостями справа -->
     <div class="col-md-4">
         <div class="news-container">
             <h3>Neueste Nachrichten</h3>
@@ -82,9 +80,9 @@
 <script src="/app/views/vacancy/createVacancy.js" defer></script>
 
 <div class="pagination-container">
-    <button id="prevPage" class="pagination-button" onclick="prevPage()">< Prev</button>
+    <button id="prevPage" class="pagination-button" onclick="prevPage()">< Amfang</button>
     <div id="pageButtons"></div>
-    <button id="nextPage" class="pagination-button" onclick="nextPage()">Next ></button>
+    <button id="nextPage" class="pagination-button" onclick="nextPage()">Ende ></button>
 </div>
 
 
@@ -110,42 +108,55 @@
                 </div>
                 <div class="col-md-6">
                     <ul class="list">
-                        <li><a href="http://localhost:8000/app/views/info/load_comments.php#">Bewertung von Kunden</a></li>
-                        <li><a href="#">Contacts</a></li>
-                        <li><a href="#">Terms & Condition</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="http://localhost:8000/app/views/info/contact.php#">Contacts</a></li>
+                        <li><a href="http://localhost:8000/app/views/info/privacyPolicy.php#">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-2 footer-social animated fadeInDown">
                 <h4>Follow Us</h4>
-                <ul>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">Telegram</a></li>
+                <ul id="social-links">
+                    <li><a href="#" onclick="redirectToSocial('Facebook')">Facebook</a></li>
+                    <li><a href="#" onclick="redirectToSocial('Twitter')">Twitter</a></li>
+                    <li><a href="#" onclick="redirectToSocial('Instagram')">Instagram</a></li>
+                    <li><a href="#" onclick="redirectToSocial('Telegram')">Telegram</a></li>
                 </ul>
+
+                <script>
+                    function redirectToSocial(socialMedia) {
+
+                        var redirectUrl = 'https://www.deine-soziale-netzwerk-url.de';
+                        switch (socialMedia) {
+                            case 'Facebook':
+                                redirectUrl = 'https://www.facebook.com/';
+                                break;
+                            case 'Twitter':
+                                redirectUrl = 'https://twitter.com/';
+                                break;
+                            case 'Instagram':
+                                redirectUrl = 'https://www.instagram.com/';
+                                break;
+                            case 'Telegram':
+                                redirectUrl = 'https://t.me/';
+                                break;
+                        }
+                        window.location.href = redirectUrl;
+                    }
+                </script>
             </div>
             <div class="col-md-3 footer-ns animated fadeInRight">
                 <h4>Newsletter</h4>
                 <p>A rover wearing a fuzzy suit doesn’t alarm the real penguins</p>
                 <p>
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-  <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
-  </span>
-                </div><!-- /input-group -->
+
                 </p>
             </div>
         </div>
     </footer>
     <section style="text-align:center; margin:10px auto;"><p>Designed by <a href="/">Bespalova Y, Koschelev M</a></p></section>
 
-<!--</div>-->
 <img src="/images/fone.png" alt="Your Image" style="width: 100%; height: 17%; position: absolute; top: 0; left: 0; z-index: -1;">
 <img src="/images/logo.png" alt="Your Image" style="width: 10%; height: 17%; position: absolute; top: 0; left: 1070px; z-index: -1;">
-<!--<div style="height: 200px; background-color: lightgrey; margin-top: 30px;"></div>-->
 </body>
 
 </html>
