@@ -88,7 +88,7 @@ class BlogController extends BaseController
                 ];
 
                 $this->blogManager->createBlog(Blog::serialize($userInput));
-                header("Location: /app/views/blog/index.php");
+                header("Location: /blog");
                 exit();
             }
         } catch (Exception $e) {

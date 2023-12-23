@@ -30,8 +30,8 @@ if ($userLoggedIn) {
                 <li><a href="/company" class="nav-link px-2 text-white">Companies</a></li>
                 <!-- temporary -->
 
-                <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToBlogs()">Blogs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToCreateBlog()">Add Blog</a></li>
+                <li><a href="/blog" class="nav-link px-2 text-white">Blogs</a></li>
+                <li><a href="/blog/create" class="nav-link px-2 text-white">Add Blog</a></li>
 
                 <li><a href="#" class="nav-link px-2 text-white" onclick="redirectToVacancyCreate()">Add vacancy</a>
                 </li>
